@@ -18,7 +18,7 @@
                         <div class="card-body">
                             <div class="logo-init">
                             <h3>Área De Membros</h3>
-                        <div><!--área de membros-->
+                            <div><!--logo init-área de membros-->
                         <div class="card-body">
                             <img src="img/logo.png" alt="">
                             </div><!--logo-init-->
@@ -58,6 +58,7 @@
     <source src="img/mine.mp4" type="video/mp4">
     </video>
     <!--Background-video-->
+<script src="js/validation.js"></script>
 </body>
 </html>
 
