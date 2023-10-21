@@ -25,6 +25,7 @@ $res = $stmt->get_result();
 
 if ($res->num_rows > 0) {
     $row = $res->fetch_object();
+    $_SESSION["id"] = $row->id;
     $_SESSION["usuario"] = $usuario;
     $_SESSION["nome"] = $row->nome;
     $_SESSION["tipo"] = $row->tipo;

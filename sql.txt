@@ -1,0 +1,5 @@
+INSERT INTO leis (numero_lei, lei)
+VALUES (1, 'Lei de Teste');
+
+INSERT INTO incisos (numero_inciso, inciso, lei_id)
+VALUES ('I', 'Inciso de Teste 1', LAST_INSERT_ID()), ('II', 'Inciso de Teste 2', LAST_INSERT_ID());

@@ -1,15 +1,10 @@
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, and, address, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video, input, textarea, select {
-	background:transparent;
-	border:0;
-	font-size:100%;
-	margin:0;
-	outline:0;
-	padding:0;
-	vertical-align:baseline;
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
-	display:block;
-}
+
 body {
 	line-height:1;
     background-color: #000000;
@@ -24,41 +19,6 @@ body {
     top: 0;
     bottom: 0;
     z-index: -1;
-}
-abbr[title], dfn[title] {
-	border-bottom:1px dotted;
-	cursor:help;
-}
-del {
-	text-decoration:line-through;
-}
-hr {
-	background:transparent;
-	border:0;
-	clear:both;
-	color:transparent;
-	height:1px;
-	margin:0;
-	padding:0;
-}
-mark {
-	background-color:#ffffb3;
-	font-style:italic
-}
-input, select {
-	vertical-align:middle;
-}
-ins {
-	background-color:red;
-	color:white;
-	text-decoration:none;
-}
-ol, ul {
-	list-style:none;
-}
-table {
-	border-collapse:collapse;
-	border-spacing:0;
 }
 
 .login{
@@ -124,5 +84,90 @@ section > span{
 }
 
 .botao-sair{
-	color: white;
+	color: rgb(255, 255, 255);
+	width: 250px;
+	text-align: center;
+	margin-left: 5%;
+	font-size: 20px;
+	font-weight: bold;
 }
+
+/*estilização da pagina perfil */
+.alterar-form {
+    margin-left: 100px;
+	margin-top: -150px;
+	flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Altura total da viewport */
+}
+
+.form-alterar{
+    text-align: center;
+    width: 30%; /* Largura do formulário */
+    text-align: center;
+}
+
+span h3,h5{
+	display: block;
+    text-align: center;
+    font-weight: bold;
+}
+
+.alterar-form input[type="text"], 
+.alterar-form input[type="password"] {
+    width: 70%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.alterar-form input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 70%;
+}
+
+.alterar-form input[type="submit"]:hover {
+    opacity: 0.8;
+}
+
+/* fim da estilização da pagina perfil */
+
+/*estilização da pagina copnstituição */
+
+.title{
+	color: blue;
+	text-align: center;
+	display: inline;
+}
+
+.container-const {
+	margin-top: 10px;
+    width: 100%;
+    margin-left: 350px;
+    text-align: left;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+    margin-right: -30%; /* Adicionando margem negativa */
+	display: table-caption;
+	background-image: url(../img/const.png);
+	font-weight: bold;
+}
+
+/*fim da estilização da pagina copnstituição */
+
+/*estilização da pagina gabinete do presidente */
+
+
+
+
+/*fim da estilização da pagina gabinete do presidente */

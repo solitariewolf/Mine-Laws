@@ -29,13 +29,13 @@
 
                                 <div>
                                     <div class="mb-3">
-                                        <label>Usuário</label>
+                                        <label>Usuário:</label>
                                         <input type="text" name="usuario" class="form-control">
                                     </div>
                                 </div>
                                 <div>
                                     <div class="mb-3">
-                                        <label>Senha</label>
+                                        <label>Senha:</label>
                                         <input type="password" name="senha" class="form-control">
                                     </div>
                                 </div>
