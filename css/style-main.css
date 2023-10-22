@@ -166,8 +166,77 @@ span h3,h5{
 /*fim da estilização da pagina copnstituição */
 
 /*estilização da pagina gabinete do presidente */
+.corpo{
+	margin-top: 10px;
+	margin-left: 350px;
+}
 
+.presilogo{
+	text-align: center;
+	border: 1px solid #ccc;
+	max-width: 450px;
+	min-width: 350px;
+}
 
+.presilogo img{
+	height: 150px;
+}
 
+.envio-lei form{
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.envio-lei label{
+	display: inline-block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.envio-lei select{
+	width: 30%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.envio-lei h3{
+	font-weight: bold;
+}
+
+input[type="radio"] {
+    margin-right: 5px;
+}
+
+#texto_lei textarea {
+    width: 50%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.envio-lei input[type="submit"] {
+	background-color: blue;
+	color: white;
+    width: 30%;
+	text-align: center;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+input[type="submit"]:hover {
+    background-color: #0099ff;
+}
+
+.flagsleis{
+	display: inline;
+}
 
 /*fim da estilização da pagina gabinete do presidente */
