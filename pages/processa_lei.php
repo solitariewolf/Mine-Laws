@@ -14,47 +14,61 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $acao = $_POST['acao_lei'];
     $nova_lei = isset($_POST['nova_lei']) ? $_POST['nova_lei'] : ''; // Apenas se a ação for "alterar"
 
-    // Verifique se uma ação foi selecionada
-    if ($acao == "revogar" || ($acao == "alterar" && !empty($nova_lei))) {
-        // Inicie uma transação
-        mysqli_autocommit($conn, false);
+    // Recupere o texto da lei original da tabela leis
+    $query_lei_original = "SELECT lei FROM leis WHERE id = ?";
+    $stmt_lei_original = mysqli_prepare($conn, $query_lei_original);
 
-        // Inserir na tabela leis_em_votacao
-        $insert_query = "INSERT INTO leis_em_votacao (id_lei_original, acao, nova_lei) VALUES (?, ?, ?)";
-        $stmt = mysqli_prepare($conn, $insert_query);
+    if ($stmt_lei_original) {
+        mysqli_stmt_bind_param($stmt_lei_original, "i", $lei_id);
+        mysqli_stmt_execute($stmt_lei_original);
+        mysqli_stmt_bind_result($stmt_lei_original, $texto_original);
+        mysqli_stmt_fetch($stmt_lei_original);
+        mysqli_stmt_close($stmt_lei_original);
 
-        if ($stmt) {
-            mysqli_stmt_bind_param($stmt, "iss", $lei_id, $acao, $nova_lei);
-            mysqli_stmt_execute($stmt);
+        // Verifique se uma ação foi selecionada
+        if ($acao == "revogar" || ($acao == "alterar" && !empty($nova_lei))) {
+            // Inicie uma transação
+            mysqli_autocommit($conn, false);
 
-            // Verifique se a inserção foi bem-sucedida
-            if (mysqli_affected_rows($conn) > 0) {
-                // Confirme a transação
-                mysqli_commit($conn);
+            // Inserir na tabela leis_em_votacao
+            $insert_query = "INSERT INTO leis_em_votacao (id_lei_original, acao, nova_lei, texto_original) VALUES (?, ?, ?, ?)";
+            $stmt = mysqli_prepare($conn, $insert_query);
 
-                // Exiba um alerta
-                echo "<script>alert('Ação registrada com sucesso. Aguardando votação.');</script>";
+            if ($stmt) {
+                mysqli_stmt_bind_param($stmt, "isss", $lei_id, $acao, $nova_lei, $texto_original);
+                mysqli_stmt_execute($stmt);
 
-                // Redirecione para dashboard.php após um breve atraso
-                echo "<script>setTimeout(function() { window.location.href = '../dashboard.php'; }, 0);</script>";
+                // Verifique se a inserção foi bem-sucedida
+                if (mysqli_affected_rows($conn) > 0) {
+                    // Confirme a transação
+                    mysqli_commit($conn);
+
+                    // Exiba um alerta
+                    echo "<script>alert('Ação registrada com sucesso. Aguardando votação.');</script>";
+
+                    // Redirecione para dashboard.php após um breve atraso
+                    echo "<script>setTimeout(function() { window.location.href = '../dashboard.php'; }, 0);</script>";
+                } else {
+                    // Rolback em caso de erro
+                    mysqli_rollback($conn);
+
+                    // Exiba um alerta
+                    echo "<script>alert('Erro ao registrar a ação.');</script>";
+                }
+
+                // Feche a declaração preparada
+                mysqli_stmt_close($stmt);
             } else {
-                // Rolback em caso de erro
-                mysqli_rollback($conn);
-
-                // Exiba um alerta
-                echo "<script>alert('Erro ao registrar a ação.');</script>";
+                echo "Erro na preparação da consulta.";
             }
 
-            // Feche a declaração preparada
-            mysqli_stmt_close($stmt);
+            // Restaure o modo de autocommit
+            mysqli_autocommit($conn, true);
         } else {
-            echo "Erro na preparação da consulta.";
+            echo "Selecione uma ação válida e, se for 'Alterar Lei', forneça a nova lei.";
         }
-
-        // Restaure o modo de autocommit
-        mysqli_autocommit($conn, true);
     } else {
-        echo "Selecione uma ação válida e, se for 'Alterar Lei', forneça a nova lei.";
+        echo "Erro na recuperação do texto da lei original.";
     }
 } else {
     echo "Acesso inválido a este script.";

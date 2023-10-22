@@ -13,8 +13,14 @@ if (!$result) {
     die("Erro ao buscar as leis: " . mysqli_error($conexao));
 }
 
-?>
+$consulta_leis = "SELECT l.id, l.numero_lei, l.lei, le.votos_positivos, le.votos_negativos
+FROM leis l
+LEFT JOIN leis_em_votacao le ON l.id = le.id_lei_original
+GROUP BY l.id
+HAVING (SUM(le.votos_positivos) + SUM(le.votos_negativos)) = 3";
+$result_consulta = mysqli_query($conn, $consulta_leis);
 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,7 +73,42 @@ if (!$result) {
         </form>
     </div><!--envio-lei-->
 
+    <!--seção sobre as leis com votação encerrada-->
 
+<div class="leis-votacao">
+    <h2>Leis com 3 ou mais votos:</h2>
+    <table>
+        <tr>
+            <th>Lei</th>
+            <th>Votos Positivos</th>
+            <th>Votos Negativos</th>
+            <th>Ação</th>
+        </tr>
+        <?php
+        while ($row_consulta = mysqli_fetch_assoc($result_consulta)) {
+            echo "<tr>";
+            echo "<td>{$row_consulta['lei']}</td>";
+            echo "<td>{$row_consulta['votos_positivos']}</td>";
+            echo "<td>{$row_consulta['votos_negativos']}</td>";
+            echo "<td>";
+            
+            if (($row_consulta['votos_positivos'] - $row_consulta['votos_negativos']) >= 3) {
+                echo "<button class='promulgar-btn' data-lei-id='{$row_consulta['id']}'>Promulgar</button>";
+            } else {
+                echo "<button class='deletar-btn' data-lei-id='{$row_consulta['id']}'>Deletar Votação</button>";
+            }
+            
+            echo "</td>";
+            echo "</tr>";
+        }
+        ?>
+    </table>
+</div><!--leis em votacao-->
+
+
+  <!-- fim da seção sobre as leis com votação encerrada-->
+
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script>
             document.getElementById('alterar_lei').addEventListener('change', function() {
                 if (this.checked) {
@@ -93,6 +134,37 @@ if (!$result) {
                     submitButton.disabled = true;
                 }
             }
+
+            //seção leis com votação encerrada
+            $(document).ready(function () {
+        // Promulgar Lei
+        $('.promulgar-btn').click(function () {
+            const leiID = $(this).data('lei-id');
+            $.ajax({
+                type: 'POST',
+                url: 'pages/promulgar_lei.php', // Página que trata a promulgação
+                data: { id: leiID },
+                success: function () {
+                    // Atualize a página ou qualquer outra ação desejada
+                    alert('Lei promulgada com sucesso!');
+                }
+            });
+        });
+
+        // Deletar Votação
+        $('.deletar-btn').click(function () {
+            const leiID = $(this).data('lei-id');
+            $.ajax({
+                type: 'POST',
+                url: 'pages/deletar_votacao.php', // Página que trata a exclusão da votação
+                data: { id: leiID },
+                success: function () {
+                    // Atualize a página ou qualquer outra ação desejada
+                    alert('Votação deletada com sucesso!');
+                }
+            });
+        });
+    });
             </script>
 
 </div><!--corpo-->

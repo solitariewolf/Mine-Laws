@@ -239,4 +239,65 @@ input[type="submit"]:hover {
 	display: inline;
 }
 
+.leis-votacao h2{
+	font-size: 20px;
+}
+
 /*fim da estilização da pagina gabinete do presidente */
+
+/*estilização da pagina votacoes */
+
+/* Estilo para a tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #ccc;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+/* Estilo para o cabeçalho da tabela */
+th {
+    background-color: #007BFF; /* Cor de fundo do cabeçalho */
+    color: #fff; /* Cor do texto no cabeçalho */
+}
+
+/* Estilo para as linhas alternadas na tabela */
+tr:nth-child(even) {
+    background-color: #f2f2f2; /* Cor de fundo das linhas pares */
+}
+
+/* Estilo para os botões de aprovar e reprovar */
+.aprovar-btn, .reprovar-btn {
+    background-color: #28A745; /* Cor de fundo do botão de aprovar */
+    color: #fff; /* Cor do texto no botão de aprovar */
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.reprovar-btn {
+    background-color: #DC3545; /* Cor de fundo do botão de reprovar */
+}
+
+.aprovar-btn:hover, .reprovar-btn:hover {
+    background-color: #218838; /* Cor de fundo do botão ao passar o mouse */
+}
+
+/* Estilo para o corpo da página */
+.corpo {
+    padding: 20px;
+}
+
+.corpo h3{
+	display: inline-block;
+	font-size: 20px;
+}
+
+/*fim estilização da pagina votacoes */

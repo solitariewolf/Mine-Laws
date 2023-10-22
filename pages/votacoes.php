@@ -21,11 +21,12 @@ $result = mysqli_query($conn, $query);
 </head>
 <body>
 <div class="corpo">
-
+    <h3>Caro jogador, verifique antes de votar, a ação não poderá ser desfeita, e somente é computado 1 voto por jogador em cada lei!</h3>
 <table>
     <tr>
         <th>Votação N°</th>
         <th>Ação</th>
+        <th>Texto Original</th>
         <th>Nova Lei</th>
         <th>Votos Positivos</th>
         <th>Votos Negativos</th>
@@ -37,6 +38,7 @@ $result = mysqli_query($conn, $query);
         echo "<tr>";
         echo "<td>{$row['id']}</td>";
         echo "<td>{$row['acao']}</td>";
+        echo "<td>{$row['texto_original']}</td>";
         echo "<td>{$row['nova_lei']}</td>";
         echo "<td>{$row['votos_positivos']}</td>";
         echo "<td>{$row['votos_negativos']}</td>";

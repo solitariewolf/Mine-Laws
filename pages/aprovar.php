@@ -19,8 +19,8 @@ if (isset($_POST['id']) && isset($_SESSION['id'])) {
 
         if ($count == 0) {
             // O usuário não votou nesta lei, pode continuar com a votação
-            $query = "UPDATE leis_em_votacao SET votos_positivos = votos_positivos + 1 WHERE id = $lei_id";
-            mysqli_query($conn, $query);
+            $query_update_total = "UPDATE leis_em_votacao SET votos_positivos = votos_positivos + 1, total_votos = total_votos + 1 WHERE id = $lei_id";
+            mysqli_query($conn, $query_update_total);
             // Registre o voto do usuário na tabela user_votes
             $insert_vote_query = "INSERT INTO user_votes (user_id, lei_id) VALUES ($user_id, $lei_id)";
             mysqli_query($conn, $insert_vote_query);
