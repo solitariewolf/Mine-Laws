@@ -13,7 +13,7 @@ if (!$result) {
     die("Erro ao buscar as leis: " . mysqli_error($conexao));
 }
 
-$consulta_leis = "SELECT l.id, l.numero_lei, l.lei, le.votos_positivos, le.votos_negativos
+$consulta_leis = "SELECT l.id, l.numero_lei, le.nova_lei, le.acao, l.lei, le.votos_positivos, le.votos_negativos
 FROM leis l
 LEFT JOIN leis_em_votacao le ON l.id = le.id_lei_original
 GROUP BY l.id
@@ -76,10 +76,12 @@ $result_consulta = mysqli_query($conn, $consulta_leis);
     <!--seção sobre as leis com votação encerrada-->
 
 <div class="leis-votacao">
-    <h2>Leis com 3 ou mais votos:</h2>
+    <h2>Leis constitucionais prontas para promulgação ou arquivamento:</h2>
     <table>
         <tr>
-            <th>Lei</th>
+            <th>Texto Atual</th>
+            <th>Novo Texto</th>
+            <th>Solicitado para</th>
             <th>Votos Positivos</th>
             <th>Votos Negativos</th>
             <th>Ação</th>
@@ -88,6 +90,8 @@ $result_consulta = mysqli_query($conn, $consulta_leis);
         while ($row_consulta = mysqli_fetch_assoc($result_consulta)) {
             echo "<tr>";
             echo "<td>{$row_consulta['lei']}</td>";
+            echo "<td>{$row_consulta['nova_lei']}</td>";
+            echo "<td>{$row_consulta['acao']}</td>";
             echo "<td>{$row_consulta['votos_positivos']}</td>";
             echo "<td>{$row_consulta['votos_negativos']}</td>";
             echo "<td>";
@@ -95,7 +99,7 @@ $result_consulta = mysqli_query($conn, $consulta_leis);
             if (($row_consulta['votos_positivos'] - $row_consulta['votos_negativos']) >= 3) {
                 echo "<button class='promulgar-btn' data-lei-id='{$row_consulta['id']}'>Promulgar</button>";
             } else {
-                echo "<button class='deletar-btn' data-lei-id='{$row_consulta['id']}'>Deletar Votação</button>";
+                echo "<button class='deletar-btn' data-lei-id='{$row_consulta['id']}'>Arquivar</button>";
             }
             
             echo "</td>";

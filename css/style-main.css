@@ -243,11 +243,44 @@ input[type="submit"]:hover {
 	font-size: 20px;
 }
 
+.deletar-btn{
+	background-color: #DC3545;
+	color: white;
+    width: 100%;
+	text-align: center;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+.deletar-btn:hover{
+	background-color: red;
+}
+
+.promulgar-btn{
+	background-color: #00ff00;
+	color: white;
+    width: 100%;
+	text-align: center;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+.promulgar-btn:hover{
+	background-color: green;
+}
+
+td{
+	border: 1px solid #ccc;
+}
+
 /*fim da estilização da pagina gabinete do presidente */
 
 /*estilização da pagina votacoes */
 
-/* Estilo para a tabela */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -262,35 +295,31 @@ th, td {
     text-align: left;
 }
 
-/* Estilo para o cabeçalho da tabela */
 th {
-    background-color: #007BFF; /* Cor de fundo do cabeçalho */
-    color: #fff; /* Cor do texto no cabeçalho */
+    background-color: #007BFF; 
+    color: #fff; 
 }
 
-/* Estilo para as linhas alternadas na tabela */
 tr:nth-child(even) {
-    background-color: #f2f2f2; /* Cor de fundo das linhas pares */
+    background-color: #f2f2f2; 
 }
 
-/* Estilo para os botões de aprovar e reprovar */
 .aprovar-btn, .reprovar-btn {
-    background-color: #28A745; /* Cor de fundo do botão de aprovar */
-    color: #fff; /* Cor do texto no botão de aprovar */
+    background-color: #28A745; 
+    color: #fff; 
     border: none;
     padding: 5px 10px;
     cursor: pointer;
 }
 
 .reprovar-btn {
-    background-color: #DC3545; /* Cor de fundo do botão de reprovar */
+    background-color: #DC3545;
 }
 
 .aprovar-btn:hover, .reprovar-btn:hover {
-    background-color: #218838; /* Cor de fundo do botão ao passar o mouse */
+    background-color: #218838; 
 }
 
-/* Estilo para o corpo da página */
 .corpo {
     padding: 20px;
 }
