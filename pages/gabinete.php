@@ -31,7 +31,7 @@ $sql = "SELECT ID, Texto FROM leis";
 $result_leis = $conn->query($sql);
 
 // Recupere as leis que receberam pelo menos 3 votos
-$stmt = $conn->prepare("SELECT * FROM votacoes_leis WHERE Total_Votos >= 3 AND Arquivado = 'não'");
+$stmt = $conn->prepare("SELECT * FROM votacoes_leis WHERE Total_Votos >= 3 AND Arquivado = 'não' AND Promulgado = 'não'");
 $stmt->execute();
 $result_votacoes = $stmt->get_result();
 ?>
@@ -90,7 +90,7 @@ $result_votacoes = $stmt->get_result();
                             <p class="card-text">Votos Positivos: <?php echo $row['Votos_Positivos']; ?></p>
                             <p class="card-text">Votos Negativos: <?php echo $row['Votos_Negativos']; ?></p>
                             <?php if ($row['Votos_Positivos'] >= 3) { ?>
-                                <button type="button" class="btn btn-success">Promulgar</button>
+                                <button type="button" class="btn btn-success" data-id="<?php echo $row['ID']; ?>">Promulgar</button>
                             <?php } else { ?>
                                 <button type="button" class="btn btn-danger" data-id="<?php echo $row['ID']; ?>">Arquivar</button>
                             <?php } ?>
@@ -109,6 +109,20 @@ $result_votacoes = $stmt->get_result();
             var lei_id = $(this).data('id');
             $.ajax({
                 url: 'pages/arquivar_lei.php',
+                type: 'post',
+                data: {id: lei_id},
+                success: function(response){
+                    alert(response);
+                }
+            });
+        });
+    });
+
+        $(document).ready(function(){
+        $(".btn-success").click(function(){
+            var lei_id = $(this).data('id');
+            $.ajax({
+                url: 'pages/promulgar_lei.php',
                 type: 'post',
                 data: {id: lei_id},
                 success: function(response){

@@ -11,7 +11,7 @@
 <body>
 
 <div class="login">
-    <div class="container">
+    <div class="container2">
         <div class="row">            
             <div class="col-lg-4 offset-lg-4">    
                     <div class="card">

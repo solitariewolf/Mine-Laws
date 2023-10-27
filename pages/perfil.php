@@ -15,17 +15,17 @@ if (empty($_SESSION)) {
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 </head>
 <body>
-
-    <div class="alterar-form">
-    <span><h3>Meu perfil</h3><h5>Alterar dados</h5></span>
-        <form class="form-alterar" method="post" action="pages/alterar.php">
-            <label for="usuario">Alterar usuário:</label><br>
-            <input type="text" id="usuario" name="usuario"><br>
-            <label for="senha">Alterar Senha:</label><br>
-            <input type="password" id="senha" name="senha"><br>
-            <input type="submit" value="Alterar">
-        </form>
+    <div class="container">
+        <div class="alterar-form">
+        <span><h3>Meu perfil</h3><h5>Alterar dados</h5></span>
+            <form class="form-alterar" method="post" action="pages/alterar.php">
+                <label for="usuario">Alterar usuário:</label><br>
+                <input type="text" id="usuario" name="usuario"><br>
+                <label for="senha">Alterar Senha:</label><br>
+                <input type="password" id="senha" name="senha"><br>
+                <input type="submit" value="Alterar">
+            </form>
+        </div>
     </div>
-    
 </body>
 </html>
