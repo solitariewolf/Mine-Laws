@@ -139,194 +139,28 @@ span h3,h5{
     opacity: 0.8;
 }
 
+.corpo{
+    margin-left: 350px;
+}
+
+.formularios{
+    max-width: 560px;
+}
+
 /* fim da estilização da pagina perfil */
 
-/*estilização da pagina copnstituição */
-
-.title{
-	color: blue;
-	text-align: center;
-	display: inline;
-}
-
-.container-const {
-	margin-top: 10px;
-    width: 100%;
-    margin-left: 350px;
-    text-align: left;
-    border: 1px solid #ccc;
-    padding: 20px;
-    margin-bottom: 20px;
-    margin-right: -30%; /* Adicionando margem negativa */
-	display: table-caption;
-	background-image: url(../img/const.png);
-	font-weight: bold;
-}
-
-/*fim da estilização da pagina copnstituição */
-
-/*estilização da pagina gabinete do presidente */
-.corpo{
-	margin-top: 10px;
-	margin-left: 350px;
-}
-
-.presilogo{
-	text-align: center;
-	border: 1px solid #ccc;
-	max-width: 450px;
-	min-width: 350px;
-}
-
-.presilogo img{
-	height: 150px;
-}
-
-.envio-lei form{
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
-.envio-lei label{
-	display: inline-block;
-    margin-top: 10px;
-    font-weight: bold;
-}
-
-.envio-lei select{
-	width: 30%;
-    padding: 10px;
+.container{
+    margin-top: 15px;
+    padding: 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 16px;
+    background-color: antiquewhite;
+    max-width: 350px;
+    min-width: 350px;
 }
 
-.envio-lei h3{
-	font-weight: bold;
+.promulgacao{
+    max-width: 100%;
+    max-height: 260px;
+    overflow-y: auto;
 }
-
-input[type="radio"] {
-    margin-right: 5px;
-}
-
-#texto_lei textarea {
-    width: 50%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-.envio-lei input[type="submit"] {
-	background-color: blue;
-	color: white;
-    width: 30%;
-	text-align: center;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-}
-
-input[type="submit"]:hover {
-    background-color: #0099ff;
-}
-
-.flagsleis{
-	display: inline;
-}
-
-.leis-votacao h2{
-	font-size: 20px;
-}
-
-.deletar-btn{
-	background-color: #DC3545;
-	color: white;
-    width: 100%;
-	text-align: center;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-}
-.deletar-btn:hover{
-	background-color: red;
-}
-
-.promulgar-btn{
-	background-color: #00ff00;
-	color: white;
-    width: 100%;
-	text-align: center;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-}
-.promulgar-btn:hover{
-	background-color: green;
-}
-
-td{
-	border: 1px solid #ccc;
-}
-
-/*fim da estilização da pagina gabinete do presidente */
-
-/*estilização da pagina votacoes */
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-table, th, td {
-    border: 1px solid #ccc;
-}
-
-th, td {
-    padding: 8px;
-    text-align: left;
-}
-
-th {
-    background-color: #007BFF; 
-    color: #fff; 
-}
-
-tr:nth-child(even) {
-    background-color: #f2f2f2; 
-}
-
-.aprovar-btn, .reprovar-btn {
-    background-color: #28A745; 
-    color: #fff; 
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-.reprovar-btn {
-    background-color: #DC3545;
-}
-
-.aprovar-btn:hover, .reprovar-btn:hover {
-    background-color: #218838; 
-}
-
-.corpo {
-    padding: 20px;
-}
-
-.corpo h3{
-	display: inline-block;
-	font-size: 20px;
-}
-
-/*fim estilização da pagina votacoes */

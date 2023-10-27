@@ -3,23 +3,37 @@ session_start();
 if (empty($_SESSION)) {
     print "<script>location.href='../index.php'</script>";
 }
-
 include('../config.php');
-//buscar as leis no db
-$query = "SELECT id, numero_lei, lei FROM leis";
-$result = mysqli_query($conn, $query);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['lei_existente'])) {
+        // O usuário selecionou uma lei existente
+        $lei_id = $_POST['lei_existente'];
+    } elseif (isset($_POST['nova_lei'])) {
+        // O usuário inseriu uma nova lei
+        $nova_lei = $_POST['nova_lei'];
 
-if (!$result) {
-    die("Erro ao buscar as leis: " . mysqli_error($conexao));
+        // Insira a nova lei na tabela "leis" como "Texto_Original"
+        $sql = "INSERT INTO leis (Texto_Original) VALUES (?)";
+        $stmt = $conn->prepare($sql);
+
+        if ($stmt->execute([$nova_lei])) {
+            echo "<script>alert('Nova lei inserida com sucesso!');</script>";
+        } else {
+            echo "<script>alert('Erro ao inserir a nova lei. Por favor, tente novamente.');</script>";
+        }
+    }
+
+    // Outras ações com base no $lei_id (por exemplo, envio de votação)
 }
 
-$consulta_leis = "SELECT l.id, l.numero_lei, le.nova_lei, le.acao, l.lei, le.votos_positivos, le.votos_negativos
-FROM leis l
-LEFT JOIN leis_em_votacao le ON l.id = le.id_lei_original
-GROUP BY l.id
-HAVING (SUM(le.votos_positivos) + SUM(le.votos_negativos)) = 3";
-$result_consulta = mysqli_query($conn, $consulta_leis);
+// Consulta SQL para obter as leis da tabela "leis"
+$sql = "SELECT ID, Texto FROM leis";
+$result_leis = $conn->query($sql);
 
+// Recupere as leis que receberam pelo menos 3 votos
+$stmt = $conn->prepare("SELECT * FROM votacoes_leis WHERE Total_Votos >= 3 AND Arquivado = 'não'");
+$stmt->execute();
+$result_votacoes = $stmt->get_result();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,145 +46,77 @@ $result_consulta = mysqli_query($conn, $consulta_leis);
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 </head>
 <body>
-<div class="corpo">
-
-    <div class="presilogo">
-    <img class="" src="img/presilogo.png" alt="">
-    <p>Este é o gabiente presidencial, onde você fará administração da ONU Minecraftniana</p>
-    </div><!--presilogo-->
-
-    <div class="envio-lei">
-    <h4>Alterar a constituição: para alterar a constituição é necessário o voto positivo de todos os membros fundadores</h4>
-        <form action="pages/processa_lei.php" method="post">
-            <div>
-                <label for="select_lei">Selecione uma Lei:</label>
+    <div class="corpo">
+        <div class="formularios">
+            <!--seção de envio de nova lei-->
+                <div class="container">
+                <h1>Nova Lei Constitucional</h1>
+                <form action="pages/enviar_lei.php" method="post">
+                <div class="mb-3">
+                    <label for="textoLei" class="form-label">Texto da Lei:</label>
+                    <textarea class="form-control" id="textoLei" name="textoLei" rows="5"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar Ao Plenário</button>
+                </form>
+                </div>
+            <!--seção de alterar lei existente-->
+            <div class="container">
+                <h1>Modificar Lei Constitucional Existente</h1>
+                <form method="post" action="pages/modificar.php">
+                    <label for="lei_existente">Selecione uma lei existente:</label>
+                    <select class="form-control bg-light rounded" name="lei_existente" id="lei_existente">
+                        <option value="">Escolha uma lei</option>
+                        <?php while ($row = $result_leis->fetch_assoc()) { ?>
+                            <option value="<?php echo $row['ID']; ?>"><?php echo $row['Texto']; ?></option>
+                        <?php } ?>
+                    </select>
+                    <br>
+                    <label for="nova_lei">Digite a nova lei:</label>
+                    <input class="form-control type="text" name="nova_lei" id="nova_lei">
+                    <br>
+                    <button type="submit" class="btn btn-primary">Enviar Ao Plenário</button>
+                </form>
             </div>
-        <select name="lei" id="select_lei">
-            <?php
-            while ($row = mysqli_fetch_assoc($result)) {
-                $primeiras_palavras = implode(' ', array_slice(explode(' ', $row['lei']), 0, 5));
-                echo "<option value='{$row['id']}'>Lei {$row['numero_lei']} - {$primeiras_palavras}...</option>";
-            }
-            ?>
-        </select>
-
-        <div class="acao-container">
-            <label for="acao_lei">Ação:</label>
-            <div>
-                <input type="radio" name="acao_lei" value="revogar" id="revogar_lei">
-                <label for="revogar_lei">Revogar Lei</label>
-                <input type="radio" name="acao_lei" value="alterar" id="alterar_lei">
-                <label for="alterar_lei">Alterar Lei</label>
+                                <!--seção das leis votadas no plenário-->
+            <div class="container">
+                <h1>Leis para Promulgação ou Arquivamento</h1>
+                <div class="promulgacao">
+                <?php while ($row = $result_votacoes->fetch_assoc()) { ?>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Lei ID: <?php echo $row['ID']; ?></h5>
+                            <p class="card-text">Texto Original: <?php echo $row['Texto_Original']; ?></p>
+                            <p class="card-text">Novo Texto: <?php echo $row['Novo_Texto']; ?></p>
+                            <p class="card-text">Votos Positivos: <?php echo $row['Votos_Positivos']; ?></p>
+                            <p class="card-text">Votos Negativos: <?php echo $row['Votos_Negativos']; ?></p>
+                            <?php if ($row['Votos_Positivos'] >= 3) { ?>
+                                <button type="button" class="btn btn-success">Promulgar</button>
+                            <?php } else { ?>
+                                <button type="button" class="btn btn-danger" data-id="<?php echo $row['ID']; ?>">Arquivar</button>
+                            <?php } ?>
+                        </div>
+                    </div>
+                <?php } ?>
+                </div><!--promulgação-->
             </div>
-        </div>
+        </div><!--formularios-->
+    </div><!--corpo-->
 
-        <div id="texto_lei" style="display: none;">
-            <label for="nova_lei">Nova Lei:</label>
-            <textarea name="nova_lei" id="nova_lei" rows="4" cols="50"></textarea>
-        </div>
-
-            <input type="submit" value="Enviar para Votação">
-        </form>
-    </div><!--envio-lei-->
-
-    <!--seção sobre as leis com votação encerrada-->
-
-<div class="leis-votacao">
-    <h2>Leis constitucionais prontas para promulgação ou arquivamento:</h2>
-    <table>
-        <tr>
-            <th>Texto Atual</th>
-            <th>Novo Texto</th>
-            <th>Solicitado para</th>
-            <th>Votos Positivos</th>
-            <th>Votos Negativos</th>
-            <th>Ação</th>
-        </tr>
-        <?php
-        while ($row_consulta = mysqli_fetch_assoc($result_consulta)) {
-            echo "<tr>";
-            echo "<td>{$row_consulta['lei']}</td>";
-            echo "<td>{$row_consulta['nova_lei']}</td>";
-            echo "<td>{$row_consulta['acao']}</td>";
-            echo "<td>{$row_consulta['votos_positivos']}</td>";
-            echo "<td>{$row_consulta['votos_negativos']}</td>";
-            echo "<td>";
-            
-            if (($row_consulta['votos_positivos'] - $row_consulta['votos_negativos']) >= 3) {
-                echo "<button class='promulgar-btn' data-lei-id='{$row_consulta['id']}'>Promulgar</button>";
-            } else {
-                echo "<button class='deletar-btn' data-lei-id='{$row_consulta['id']}'>Arquivar</button>";
-            }
-            
-            echo "</td>";
-            echo "</tr>";
-        }
-        ?>
-    </table>
-</div><!--leis em votacao-->
-
-
-  <!-- fim da seção sobre as leis com votação encerrada-->
-
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script>
-            document.getElementById('alterar_lei').addEventListener('change', function() {
-                if (this.checked) {
-                    document.getElementById('texto_lei').style.display = 'block';
-                } else {
-                    document.getElementById('texto_lei').style.display = 'none';
-                }
-            });
-
-            document.getElementById('revogar_lei').addEventListener('change', function() {
-                if (this.checked) {
-                    document.getElementById('texto_lei').style.display = 'none';
-                }
-            });
-                    function checkSubmitButton() {
-                var alterarLei = document.getElementById('alterar_lei');
-                var revogarLei = document.getElementById('revogar_lei');
-                var submitButton = document.querySelector('input[type="submit"]');
-
-                if (alterarLei.checked || revogarLei.checked) {
-                    submitButton.disabled = false;
-                } else {
-                    submitButton.disabled = true;
-                }
-            }
-
-            //seção leis com votação encerrada
-            $(document).ready(function () {
-        // Promulgar Lei
-        $('.promulgar-btn').click(function () {
-            const leiID = $(this).data('lei-id');
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        $(".btn-danger").click(function(){
+            var lei_id = $(this).data('id');
             $.ajax({
-                type: 'POST',
-                url: 'pages/promulgar_lei.php', // Página que trata a promulgação
-                data: { id: leiID },
-                success: function () {
-                    // Atualize a página ou qualquer outra ação desejada
-                    alert('Lei promulgada com sucesso!');
-                }
-            });
-        });
-
-        // Deletar Votação
-        $('.deletar-btn').click(function () {
-            const leiID = $(this).data('lei-id');
-            $.ajax({
-                type: 'POST',
-                url: 'pages/deletar_votacao.php', // Página que trata a exclusão da votação
-                data: { id: leiID },
-                success: function () {
-                    // Atualize a página ou qualquer outra ação desejada
-                    alert('Votação deletada com sucesso!');
+                url: 'pages/arquivar_lei.php',
+                type: 'post',
+                data: {id: lei_id},
+                success: function(response){
+                    alert(response);
                 }
             });
         });
     });
-            </script>
-
-</div><!--corpo-->
+    </script>
 </body>
 </html>

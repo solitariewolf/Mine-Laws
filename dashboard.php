@@ -29,7 +29,7 @@ if (empty($_SESSION)) {
         <a href="#" onclick="exibirConteudo('pages/decretos.html')">Decretos</a>
         <a href="#" onclick="exibirConteudo('pages/gabinete.php')">Gabiente do Presidente</a>
         <a href="#" onclick="exibirConteudo('pages/controladoria.html')">Controladoria</a>
-        <a href="#" onclick="exibirConteudo('pages/votacoes.php')">Votações</a>
+        <a href="#" onclick="exibirConteudo('pages/votacoes_const.php')">Votações Constituição</a>
         <a href="#" onclick="exibirConteudo('pages/perfil.php')">Meu Perfil</a>
     </aside><!--painel-lateral-->
 
@@ -39,3 +39,4 @@ if (empty($_SESSION)) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </body>
 </html>
+
