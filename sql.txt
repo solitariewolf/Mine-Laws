@@ -1,5 +1,370 @@
-INSERT INTO leis (numero_lei, lei)
-VALUES (1, 'Lei de Teste');
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Tempo de geração: 28/10/2023 às 23:59
+-- Versão do servidor: 10.4.28-MariaDB
+-- Versão do PHP: 8.2.4
 
-INSERT INTO incisos (numero_inciso, inciso, lei_id)
-VALUES ('I', 'Inciso de Teste 1', LAST_INSERT_ID()), ('II', 'Inciso de Teste 2', LAST_INSERT_ID());
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Banco de dados: `sislogin`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `complementar`
+--
+
+CREATE TABLE `complementar` (
+  `ID` int(11) NOT NULL,
+  `Texto` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `complementar`
+--
+
+INSERT INTO `complementar` (`ID`, `Texto`) VALUES
+(1, 'É permitido voar no servidor utilizando aparatos dos mods.'),
+(2, 'Não é permitido usar o teletransporte do Journeymap.'),
+(3, 'Não poder utilizar o mysthical para spawnar itens infinitos\r\n<br>\r\n                    I - A punição para quem descumprir essa lei será a perca de todo EMC do jogador que descumpriu a lei.'),
+(9, 'O tempo de mandato do presidente da ONU é de um mês.');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `decretos`
+--
+
+CREATE TABLE `decretos` (
+  `ID` int(11) NOT NULL,
+  `Texto` text DEFAULT NULL,
+  `Votos_Derrubar` int(11) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `decretos`
+--
+
+INSERT INTO `decretos` (`ID`, `Texto`, `Votos_Derrubar`) VALUES
+(1, 'O imposto será de 250k de EMC semanal a ser pago imediatamente\r\n<br>\r\nAss: Presidente Wplay69', 0),
+(2, ' A entidade enderman será desativada para evitar kills de villagers pois os chunks ficam sempre carregando pelo motivo das vilas estarem todas pertos\r\n<br>\r\nAss: Presidente Wplay69', 0),
+(3, 'Se algum player sem querer ao realizar testes com reatores, bombas, armas ou outras máquinas ou qualquer tipo item que venha a causa dados nas vilas adjacentes superior a 20% do território (fora de regime de guerra, batalha ou vingança) será obrigatório pagar e consertar todos os danos causados aos outros players.\r\n<br>\r\nAss: Presidente Lordtiago95', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `incisos`
+--
+
+CREATE TABLE `incisos` (
+  `ID` int(11) NOT NULL,
+  `Texto` text DEFAULT NULL,
+  `Leis_ID` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `leis`
+--
+
+CREATE TABLE `leis` (
+  `ID` int(11) NOT NULL,
+  `Texto` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `leis`
+--
+
+INSERT INTO `leis` (`ID`, `Texto`) VALUES
+(1, 'Toda e qualquer lei desta constituição só pode ser alterada pela votação unânime dos 3 jogadores fundadores do servidor.\r\n<br>\r\n-I - Leis fora da constituição são chamadas leis complementares, podem ser alteradas pela votação da maioria dos membros ou seja mais que 50,1%.\r\n<br>\r\n-II - Para introduzir uma lei dentro da constituição é necessária a aprovação unânime dos 3 jogadores\r\n<br>\r\n-III - A punição pelo descumprimento do Art 1° e seus parágrafos será de reset total no jogo do jogador.'),
+(2, 'É proibido utilizar creative mode, espectator mode, ou qualquer outro tipo de modo Deus para angariar itens para sí mesmo ou para outrem, ou para obter qualquer vantagem no jogo.\r\n<br>\r\n    I - Comandos que coloquem itens no inventário também são proibidos\r\n<br>\r\n    II - Regime de exceção: Caso algum membro solicite será aberta uma votação para liberar a utilização do comando para spawnar o item no invetário.\r\n<br>\r\n    III -  O regime de exceção do parágrafo II terá que ter votação unânime dos 3 membros para aprovação, sendo necessário preencher os requisitos do parágrafo IV para abertura da votação.\r\n    IV - A votação do regime de exceção só poderá ser aberta nos seguintes casos:\r\n<br>\r\n 1 - Item bugado impossível de craftar\r\n<br>\r\n 2 - Itens que sumirem por algum bug causado no jogo\r\n<br>\r\n    V- em caso de descumprimento do art 2°, a punição será a remoção de todos os itens do computador e o EMC zerado.'),
+(3, 'As leis complementares são leis colocadas a votação por qualquer membro do jogo e é aprovada com 2 dos 3 votos necessários, as leis complementares devem obedecer os seguintes parágrafos.\n<br>\n    I - Uma lei complementar não pode alterar uma lei da constituição, apenas deve complementa-la.\n<br>\n    II - Leis complementares podem beneficiar os jogadores que aprovaram ela.\n<br>\n    III - Leis complementares não podem prejudicar diretamente o jogador que votou contra.\n<br>\n    IV - Leis complementares podem ser revogadas se algum membro colocar em votação e 2 dos 3 membros aprovarem a revogação.'),
+(4, 'Art 4° - As leis complementares vão definir as regras sobre as farms de itens com mods. (Como Mysthical Agriculture)'),
+(5, 'As leis complementares vão definir as regras sobre a possibilidade de voar no servidor utilizando os mods.\r\n'),
+(6, 'As leis complementares vão definir as regras sobre PVP e roubo de itens dos amigos.'),
+(7, 'É permitido fazer tudo o que não está proibido nessa constituição ou nas leis complementares.');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `mensagem_presidencia`
+--
+
+CREATE TABLE `mensagem_presidencia` (
+  `texto` varchar(5000) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `mensagem_presidencia`
+--
+
+INSERT INTO `mensagem_presidencia` (`texto`, `id`) VALUES
+('Caros cidadãos e cidadãs de Minecraft,\r\n<br>\r\n\r\nÉ com grande alegria e orgulho que eu me dirijo a vocês como o novo presidente deste país maravilhoso. Eu quero agradecer a todos que confiaram em mim e me deram o seu voto nas últimas eleições. Eu sei que não foi uma escolha fácil, pois tivemos muitos candidatos competentes e qualificados. Mas eu prometo que não vou decepcionar vocês e que vou trabalhar duro para honrar o meu compromisso com o povo de Minecraft.\r\n</br>\r\nAss: Presidente Wplay69', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `nome` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `usuario` varchar(45) NOT NULL,
+  `senha` varchar(255) NOT NULL,
+  `tipo` char(1) NOT NULL,
+  `data` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `nome`, `email`, `usuario`, `senha`, `tipo`, `data`) VALUES
+(2, 'admin', 'admin@admin.com', 'admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '2', '2023-10-19'),
+(3, 'eduardo', 'eduardo@admin.com', 'eduardo', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '1', '2023-10-19'),
+(4, 'tiago', 'tiago@admin.com', 'tiago', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '1', '2023-10-19');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `votacoes_leis`
+--
+
+CREATE TABLE `votacoes_leis` (
+  `ID` int(11) NOT NULL,
+  `Texto_Original` text DEFAULT NULL,
+  `Novo_Texto` text DEFAULT NULL,
+  `Votos_Positivos` int(11) NOT NULL,
+  `Votos_Negativos` int(11) NOT NULL,
+  `Total_Votos` int(11) NOT NULL,
+  `Arquivado` enum('sim','não') NOT NULL DEFAULT 'não',
+  `Promulgado` enum('sim','não') NOT NULL DEFAULT 'não'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `votacoes_leis`
+--
+
+INSERT INTO `votacoes_leis` (`ID`, `Texto_Original`, `Novo_Texto`, `Votos_Positivos`, `Votos_Negativos`, `Total_Votos`, `Arquivado`, `Promulgado`) VALUES
+(1, 'asdasd', NULL, 3, 0, 3, 'não', 'sim'),
+(2, 'asdadsasdfsdfa', NULL, 3, 0, 3, 'não', 'sim'),
+(3, 'esta é uma nova lei feita pelo presidente wesley', NULL, 3, 0, 3, 'sim', 'não'),
+(4, 'Art 4° - As leis complementares vão definir as regras sobre as farms de itens com mods. (Como Mysthical Agriculture)', NULL, 3, 0, 3, 'não', 'sim'),
+(5, 'As leis complementares vão definir as regras sobre a possibilidade de voar no servidor utilizando os mods.\r\n', NULL, 3, 0, 3, 'não', 'sim'),
+(6, 'As leis complementares vão definir as regras sobre PVP e roubo de itens dos amigos.', NULL, 3, 0, 3, 'não', 'sim'),
+(7, 'É permitido fazer tudo o que não está proibido nessa constituição ou nas leis complementares.', NULL, 3, 0, 3, 'não', 'sim');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `votacoes_leis_complementares`
+--
+
+CREATE TABLE `votacoes_leis_complementares` (
+  `ID` int(11) NOT NULL,
+  `Texto_Original` text DEFAULT NULL,
+  `Novo_Texto` text DEFAULT NULL,
+  `Votos_Positivos` int(11) NOT NULL,
+  `Votos_Negativos` int(11) NOT NULL,
+  `Total_Votos` int(11) NOT NULL,
+  `Arquivado` enum('sim','não') NOT NULL DEFAULT 'não',
+  `Promulgado` enum('sim','não') NOT NULL DEFAULT 'não'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `votacoes_leis_complementares`
+--
+
+INSERT INTO `votacoes_leis_complementares` (`ID`, `Texto_Original`, `Novo_Texto`, `Votos_Positivos`, `Votos_Negativos`, `Total_Votos`, `Arquivado`, `Promulgado`) VALUES
+(1, 'É permitido voar no servidor utilizando aparatos dos mods.', NULL, 3, 0, 3, 'não', 'sim'),
+(2, 'Não é permitido usar o teletransporte do Journeymap.', NULL, 3, 0, 3, 'não', 'sim'),
+(3, 'Não poder utilizar o mysthical para spawnar itens infinitos\r\n<br>\r\n                    I - A punição para quem descumprir essa lei será a perca de todo EMC do jogador que descumpriu a lei.', NULL, 3, 0, 3, 'não', 'sim'),
+(9, 'O tempo de mandato do presidente da ONU é de um mês.', NULL, 3, 0, 3, 'não', 'sim');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `votos`
+--
+
+CREATE TABLE `votos` (
+  `ID` int(11) NOT NULL,
+  `Usuario_ID` int(11) DEFAULT NULL,
+  `Lei_ID` int(11) DEFAULT NULL,
+  `Voto_Pos_Neg` enum('Positivo','Negativo') DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `votos_complementar`
+--
+
+CREATE TABLE `votos_complementar` (
+  `ID` int(11) NOT NULL,
+  `Usuario_ID` int(11) DEFAULT NULL,
+  `Lei_ID` int(11) DEFAULT NULL,
+  `Voto_Pos_Neg` enum('Positivo','Negativo') DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `votos_decretos`
+--
+
+CREATE TABLE `votos_decretos` (
+  `Usuario_ID` int(11) NOT NULL,
+  `Decreto_ID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Índices para tabelas despejadas
+--
+
+--
+-- Índices de tabela `complementar`
+--
+ALTER TABLE `complementar`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Índices de tabela `decretos`
+--
+ALTER TABLE `decretos`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Índices de tabela `incisos`
+--
+ALTER TABLE `incisos`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `Leis_ID` (`Leis_ID`);
+
+--
+-- Índices de tabela `leis`
+--
+ALTER TABLE `leis`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Índices de tabela `mensagem_presidencia`
+--
+ALTER TABLE `mensagem_presidencia`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `votacoes_leis`
+--
+ALTER TABLE `votacoes_leis`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Índices de tabela `votacoes_leis_complementares`
+--
+ALTER TABLE `votacoes_leis_complementares`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Índices de tabela `votos`
+--
+ALTER TABLE `votos`
+  ADD PRIMARY KEY (`ID`),
+  ADD UNIQUE KEY `Usuario_ID` (`Usuario_ID`,`Lei_ID`);
+
+--
+-- Índices de tabela `votos_complementar`
+--
+ALTER TABLE `votos_complementar`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Índices de tabela `votos_decretos`
+--
+ALTER TABLE `votos_decretos`
+  ADD PRIMARY KEY (`Usuario_ID`,`Decreto_ID`);
+
+--
+-- AUTO_INCREMENT para tabelas despejadas
+--
+
+--
+-- AUTO_INCREMENT de tabela `decretos`
+--
+ALTER TABLE `decretos`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de tabela `mensagem_presidencia`
+--
+ALTER TABLE `mensagem_presidencia`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de tabela `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT de tabela `votacoes_leis`
+--
+ALTER TABLE `votacoes_leis`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de tabela `votacoes_leis_complementares`
+--
+ALTER TABLE `votacoes_leis_complementares`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT de tabela `votos`
+--
+ALTER TABLE `votos`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
+--
+-- AUTO_INCREMENT de tabela `votos_complementar`
+--
+ALTER TABLE `votos_complementar`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Restrições para tabelas despejadas
+--
+
+--
+-- Restrições para tabelas `incisos`
+--
+ALTER TABLE `incisos`
+  ADD CONSTRAINT `incisos_ibfk_1` FOREIGN KEY (`Leis_ID`) REFERENCES `leis` (`ID`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
