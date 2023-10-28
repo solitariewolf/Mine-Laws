@@ -3,7 +3,9 @@ session_start();
 if (empty($_SESSION)) {
     print "<script>location.href='../index.php'</script>";
 }
+include('../config.php');
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,17 +17,28 @@ if (empty($_SESSION)) {
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 </head>
 <body>
-    <div class="container2">
-        <div class="alterar-form">
-        <span><h3>Meu perfil</h3><h5>Alterar dados</h5></span>
-            <form class="form-alterar" method="post" action="pages/alterar.php">
-                <label for="usuario">Alterar usuário:</label><br>
-                <input type="text" id="usuario" name="usuario"><br>
-                <label for="senha">Alterar Senha:</label><br>
-                <input type="password" id="senha" name="senha"><br>
-                <input type="submit" value="Alterar">
-            </form>
+    <div class="corpo">
+        <div class="brasao">
+            <img src="./img/brasao.png" alt="">
         </div>
-    </div>
+        <div class="presidencia">
+            <?php
+                // Consulta SQL para buscar o texto
+        $sql = "SELECT texto FROM mensagem_presidencia";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            // Saída dos dados de cada linha
+            while($row = $result->fetch_assoc()) {
+                echo $row["texto"];
+            }
+        } else {
+            echo "0 resultados";
+        }
+        $conn->close();
+        ?>
+        </div>
+
+    </div><!--corpo-->
 </body>
 </html>

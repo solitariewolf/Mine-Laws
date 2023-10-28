@@ -13,9 +13,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
     $stmt->bind_param("i", $lei_id);
 
     if ($stmt->execute()) {
+    // Exclua todas as linhas na tabela "votos" que têm o mesmo Lei_ID que a lei promulgada
+    $stmt = $conn->prepare("DELETE FROM votos WHERE Lei_ID = ?");
+    $stmt->bind_param("i", $lei_id);
+    if ($stmt->execute()) {
         echo "Lei arquivada com sucesso!";
     } else {
         echo "Erro ao arquivar a lei. Por favor, tente novamente.";
     }
+}
 }
 ?>

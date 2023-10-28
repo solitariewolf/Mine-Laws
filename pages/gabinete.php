@@ -48,24 +48,80 @@ $result_votacoes = $stmt->get_result();
 <body>
     <div class="corpo">
         <div class="formularios">
+<!--==============início da seção de abertura presidencial==============-->
+    <h1 style="font-size:24px; text-align:center;">Bem vindo a área restrita governamental do gabinete presidencial!</h1>
+            <!--alterar mensagem inicial-->
+            <div class="container">
+            <h1>Pronunciamento a nação minecraftniana.</h1>
+                <div class="alterar-presidente">
+                <?php
+                // Consulta SQL para buscar o texto
+                $sql = "SELECT texto FROM mensagem_presidencia";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    // Saída dos dados de cada linha
+                    while($row = $result->fetch_assoc()) {
+                        echo "<form method='post' action='pages/update.php'>";
+                        echo "<textarea name='texto' rows='4' cols='50'>" . $row["texto"] . "</textarea>";
+                        echo "<input type='submit' value='Alterar' class='btn btn-primary'>";
+                        echo "</form>";
+                    }
+                } else {
+                    echo "0 resultados";
+                }
+                
+                ?>
+                </div><!--alterarpresidente-->
+            </div><!--container--> 
+            
+            <div class="container">
+                <h1>Entregar Presidência</h1>
+                <form method="post" action="pages/entregar_presidencia.php">
+                    <label for="usuario">Caso deseja renunciar da presidencia ou seu mandato terminou, então entregue para outro membro:</label>
+                    <select class="form-control bg-light rounded" name="usuario" id="usuario">
+                        <option value="" disabled selected>Escolha um membro</option>
+                        <?php
+                        // Consulta SQL para buscar os usuários
+                        $sql = "SELECT id, nome FROM usuarios";
+                        $result = $conn->query($sql);
+
+                        if ($result->num_rows > 0) {
+                            // Saída dos dados de cada linha
+                            while($row = $result->fetch_assoc()) {
+                                echo "<option value='" . $row['id'] . "'>" . $row['nome'] . "</option>";
+                            }
+                        } else {
+                            echo "<option value=''>Nenhum usuário encontrado</option>";
+                        }
+                        ?>
+                    </select>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Entregar Presidência</button>
+                </form>
+                <h5 style="margin-top: 5px; font-size: 10px; text-align: left;">* Cuidado essa ação não pode ser desfeita</h5>
+            </div>        
+<!--==============fim da seção de abertura presidencial==============-->
+<!--==============início da seção dos formulários constitucionais==============-->
             <!--seção de envio de nova lei-->
                 <div class="container">
                 <h1>Nova Lei Constitucional</h1>
-                <form action="pages/enviar_lei.php" method="post">
-                <div class="mb-3">
-                    <label for="textoLei" class="form-label">Texto da Lei:</label>
-                    <textarea class="form-control" id="textoLei" name="textoLei" rows="5"></textarea>
+                    <form action="pages/enviar_lei.php" method="post">
+                        <div class="mb-3">
+                            <label for="textoLei" class="form-label">Texto da Lei:</label>
+                            <textarea class="form-control" id="textoLei" name="textoLei" rows="5"></textarea>
+                        </div>
+                    <button type="submit" class="btn btn-primary">Enviar Ao Plenário</button>
+                    </form>
                 </div>
-                <button type="submit" class="btn btn-primary">Enviar Ao Plenário</button>
-                </form>
-                </div>
+
             <!--seção de alterar lei existente-->
             <div class="container">
                 <h1>Modificar Lei Constitucional Existente</h1>
                 <form method="post" action="pages/modificar.php">
                     <label for="lei_existente">Selecione uma lei existente:</label>
                     <select class="form-control bg-light rounded" name="lei_existente" id="lei_existente">
-                        <option value="">Escolha uma lei</option>
+                        <option value="" style="max-width: 250px"; disabled selected>Escolha uma lei</option>
                         <?php while ($row = $result_leis->fetch_assoc()) { ?>
                             <option value="<?php echo $row['ID']; ?>"><?php echo $row['Texto']; ?></option>
                         <?php } ?>
@@ -77,7 +133,8 @@ $result_votacoes = $stmt->get_result();
                     <button type="submit" class="btn btn-primary">Enviar Ao Plenário</button>
                 </form>
             </div>
-                                <!--seção das leis votadas no plenário-->
+            
+            <!--seção das leis votadas no plenário-->
             <div class="container">
                 <h1>Leis para Promulgação ou Arquivamento</h1>
                 <div class="promulgacao">
@@ -99,8 +156,13 @@ $result_votacoes = $stmt->get_result();
                 <?php } ?>
                 </div><!--promulgação-->
             </div>
+<!--==============fim da seção dos formulários constitucionais==============-->
+
+
+<!--==============fim da seção dos formulários de leis complementares==============-->
         </div><!--formularios-->
     </div><!--corpo-->
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
@@ -131,6 +193,7 @@ $result_votacoes = $stmt->get_result();
             });
         });
     });
+    $conn->close();
     </script>
 </body>
 </html>
