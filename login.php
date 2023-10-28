@@ -28,7 +28,7 @@ if ($res->num_rows > 0) {
     $_SESSION["id"] = $row->id;
     $_SESSION["usuario"] = $usuario;
     $_SESSION["nome"] = $row->nome;
-    $_SESSION["tipo"] = $row->tipo;
+    $_SESSION["tipo"] = strval($row->tipo);
     print "<script>location.href='dashboard.php';</script>";
 } else {
     print "<script>alert('Usuário e/ou senha incorretos')</script>";
