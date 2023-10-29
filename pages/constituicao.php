@@ -6,7 +6,7 @@ if (empty($_SESSION)) {
 include('../config.php');
 
 // Consulta SQL para obter as leis da tabela votacoes_leis
-$sql = "SELECT ID, Texto FROM Leis";
+$sql = "SELECT ID, Texto FROM leis";
 $result = $conn->query($sql);
 ?>
 <!DOCTYPE html>

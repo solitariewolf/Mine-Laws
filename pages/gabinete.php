@@ -47,7 +47,7 @@ $sql = "SELECT ID, Texto FROM complementar";
 $result_leis2 = $conn->query($sql);
 
 // Recupere as leis que receberam pelo menos 3 votos
-$stmt = $conn->prepare("SELECT * FROM votacoes_leis_complementares WHERE total_votos >= 2 AND Arquivado = 'não' AND Promulgado = 'não'");
+$stmt = $conn->prepare("SELECT * FROM votacoes_leis_complementares WHERE Total_Votos >= 2 AND Arquivado = 'não' AND Promulgado = 'não'");
 $stmt->execute();
 $result_votacoes2 = $stmt->get_result();
 
