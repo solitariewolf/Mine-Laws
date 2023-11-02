@@ -65,8 +65,17 @@ $resultdec = $conn->query($sql);
     <title>Mine Laws MOD 1.0</title>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 </head>
-<body>
+<body onload="openCity('Tab1')">
     <div class="corpo">
+
+    <h2>Tabs Example</h2>
+
+<div class="tab" onload="openCity('Tab1')">
+  <button class="tablinks" onclick="openCity(event, 'Tab1')">Leis e Decretos</button>
+  <button class="tablinks" onclick="openCity(event, 'Tab2')">Medalhas</button>
+</div>
+
+<div id="Tab1" class="tabcontent">
         <div class="formularios">
 <!--==============início da seção de abertura presidencial==============-->
 <div class="brasao-gabinete">
@@ -298,10 +307,15 @@ $resultdec = $conn->query($sql);
         
     </div>
 
-
+</div><!--conteudo leis e decretos-->
 <!--==============fim da seção dos formulários de Decretos==============-->
         </div><!--formularios-->
     </div><!--corpo-->
+
+    <div id="Tab2" class="tabcontent">
+        <h3>Tab 2</h3>
+        <p>Content for Tab 2.</p>
+    </div><!--conteudo jogadores-->
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -363,6 +377,22 @@ $resultdec = $conn->query($sql);
             });
         });
     });
+    </script>
+
+    <script>
+    function openCity(evt, cityName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
     </script>
     
 </body>
