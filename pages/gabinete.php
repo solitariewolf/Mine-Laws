@@ -54,6 +54,16 @@ $result_votacoes2 = $stmt->get_result();
 // Consulta SQL para obter os decretos
 $sql = "SELECT ID, Texto, Votos_Derrubar FROM decretos";
 $resultdec = $conn->query($sql);
+
+// Recupere as honrarias que receberam pelo menos 3 votos
+$stmt = $conn->prepare("SELECT votacoes_medalhas.id, usuarios.Nome AS Usuario, medalhas.nome AS Medalha, Votos_Positivos, Votos_Negativos, Total_Votos 
+FROM votacoes_medalhas 
+JOIN usuarios ON votacoes_medalhas.Usuario = usuarios.id
+JOIN medalhas ON votacoes_medalhas.Medalha = medalhas.id
+WHERE Total_Votos >= 2 AND Arquivado = 'não' AND Promulgado = 'não'");
+$stmt->execute();
+$result_votacoes_medalhas = $stmt->get_result();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -314,7 +324,7 @@ $resultdec = $conn->query($sql);
     <div id="Tab2" class="tabcontent">
 
     <h4>Medalhas - São honrarias dadas aos jogadores pelo presidente com aprovação dos membros fundadores</h4>
-
+    <div class="medalhas-plenario-geral">
         <div class="medalhas-plenario">
             <h2>Enviar Honraria Para o Plenário</h2>
 
@@ -340,6 +350,27 @@ $resultdec = $conn->query($sql);
             <input class="btn btn-danger" type="submit" value="Enviar a Plenário">
             </form>
         </div><!--medalhas-plenario-->
+
+        <div class="medalhas-plenario">
+                <h2>Medalhas já votadas</h2>
+                <div class="promulgacao">
+                <?php while ($row = $result_votacoes_medalhas->fetch_assoc()) { ?>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Votação N° <?php echo $row['id']; ?></h5>
+                            <p class="card-text">Usuário: <?php echo $row['Usuario']; ?></p>
+                            <p class="card-text">Medalha: <?php echo $row['Medalha']; ?></p>
+                            <?php if ($row['Votos_Positivos'] >= 2) { ?>
+                                <button type="button" class="btn-success3" data-id="<?php echo $row['id']; ?>">Promulgar</button>
+                            <?php } else { ?>
+                                <button type="button" class="btn-danger3" data-id="<?php echo $row['id']; ?>">Arquivar</button>
+                            <?php } ?>
+                        </div>
+                    </div>
+                <?php } ?>
+                </div><!--promulgação-->
+        </div><!--medalhas-plenario-->
+    </div><!--medalhas-plenario-geral-->
 
         <div class="tabela-medalhas">
             <div class="corpo-medalhas">
@@ -420,7 +451,7 @@ $resultdec = $conn->query($sql);
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
+    <script>//leis constitucionais
     $(document).ready(function(){
         $(".btn-danger").click(function(){
             var lei_id = $(this).data('id');
@@ -450,7 +481,7 @@ $resultdec = $conn->query($sql);
     });
     </script>
 
-    <script>
+    <script>//leis complementares
     $(document).ready(function(){
         $(".btn-danger2").click(function(){
             var lei_id = $(this).data('id');
@@ -470,6 +501,36 @@ $resultdec = $conn->query($sql);
             var lei_id = $(this).data('id');
             $.ajax({
                 url: 'pages/promulgar_lei_complementar.php',
+                type: 'post',
+                data: {id: lei_id},
+                success: function(response){
+                    alert(response);
+                }
+            });
+        });
+    });
+    </script>
+
+<script>//medalhas
+    $(document).ready(function(){
+        $(".btn-danger3").click(function(){
+            var lei_id = $(this).data('id');
+            $.ajax({
+                url: 'pages/arquivar_medalha.php',
+                type: 'post',
+                data: {id: lei_id},
+                success: function(response){
+                    alert(response);
+                }
+            });
+        });
+    });
+
+        $(document).ready(function(){
+        $(".btn-success3").click(function(){
+            var lei_id = $(this).data('id');
+            $.ajax({
+                url: 'pages/promulgar_medalha.php',
                 type: 'post',
                 data: {id: lei_id},
                 success: function(response){
