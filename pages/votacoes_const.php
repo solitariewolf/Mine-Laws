@@ -12,6 +12,14 @@ $result = $conn->query($sql);
 // Consulta SQL para obter as leis da tabela votacoes_leis_complementares
 $sql = "SELECT ID, Texto_Original, Novo_Texto, Votos_Positivos, Votos_Negativos, Total_Votos FROM votacoes_Leis_complementares WHERE Arquivado = 'não' AND Promulgado = 'não'";
 $result2 = $conn->query($sql);
+
+// Consulta SQL para obter as votacoes de honrarias
+$sql = "SELECT votacoes_medalhas.id, usuarios.Nome AS Usuario, medalhas.nome AS Medalha, Votos_Positivos, Votos_Negativos, Total_Votos 
+FROM votacoes_medalhas 
+JOIN usuarios ON votacoes_medalhas.Usuario = usuarios.id
+JOIN medalhas ON votacoes_medalhas.Medalha = medalhas.id
+WHERE Arquivado = 'não' AND Promulgado = 'não'";
+$result3 = $conn->query($sql);
 ?>
 
 
@@ -62,7 +70,9 @@ $result2 = $conn->query($sql);
                 <?php } ?>
             </tbody>
         </table>
+    </div><!--container-->
         <!--divisor de seções-->
+    <div class="container">
         <h1>Votações - Leis Complementares</h1>
         <table class="table">
             <thead>
@@ -97,7 +107,47 @@ $result2 = $conn->query($sql);
                 <?php } ?>
             </tbody>
         </table>
-    </div>
+    </div><!--container-->
+        <!--divisor de seções-->
+
+    <div class="container">
+        <h1>Votações - Honrarias</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Votação N°</th>
+                    <th>Usuário</th>
+                    <th>Medalha</th>
+                    <th>Votos Positivos</th>
+                    <th>Votos Negativos</th>
+                    <th>Total de Votos</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php while ($row = $result3->fetch_assoc()) { ?>
+                    <tr>
+                        <td><?php echo $row['id']; ?></td>
+                        <td><?php echo $row['Usuario']; ?></td>
+                        <td><?php echo $row['Medalha']; ?></td>
+                        <td><?php echo $row['Votos_Positivos']; ?></td>
+                        <td><?php echo $row['Votos_Negativos']; ?></td>
+                        <td><?php echo $row['Total_Votos']; ?></td>
+
+                        <td>
+                        <form method="post" action="pages/votar_medalha.php">
+                        <input type="hidden" name="lei_id" value="<?php echo $row['Usuario']; ?>">
+                        <button type="submit" name="voto" value="Positivo" class="btn btn-success">Votar a Favor</button>
+                        <button type="submit" name="voto" value="Negativo" class="btn btn-danger">Votar Contra</button>
+                        </form>
+
+                        </td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div><!--container--> 
+
 </div><!--corpo-->
 </body>
 </html>
