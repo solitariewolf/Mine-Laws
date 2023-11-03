@@ -136,7 +136,7 @@ $result3 = $conn->query($sql);
 
                         <td>
                         <form method="post" action="pages/votar_medalha.php">
-                        <input type="hidden" name="lei_id" value="<?php echo $row['Usuario']; ?>">
+                        <input type="hidden" name="lei_id" value="<?php echo $row['id']; ?>">
                         <button type="submit" name="voto" value="Positivo" class="btn btn-success">Votar a Favor</button>
                         <button type="submit" name="voto" value="Negativo" class="btn btn-danger">Votar Contra</button>
                         </form>
