@@ -67,13 +67,29 @@ body {
 }
 /*fim da estilização da página de início*/
 
+.login-rgb{
+    width: 100%;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
 .login{
     width: 100%;
     height: 100vh;
     align-items: center;
     justify-content: center;
-    display: flex;
-    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.container2{
+    width: 450px;
+    margin-left: 10%;
+    background-color: white;
+}
+
+.row{
+    margin-top: 50px;
 }
 
 .logo-init{
@@ -140,18 +156,12 @@ section > span{
 
 /*estilização da pagina perfil */
 .alterar-form {
-    margin-left: 100px;
-	margin-top: -150px;
-	flex-direction: column;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Altura total da viewport */
+	margin-top: 15px;
+    width: 500px;
+    border: 2px #ccc solid;
 }
 
 .form-alterar{
-    text-align: center;
-    width: 30%; /* Largura do formulário */
     text-align: center;
 }
 
@@ -162,7 +172,8 @@ span h3,h5{
 }
 
 .alterar-form input[type="text"], 
-.alterar-form input[type="password"] {
+.alterar-form input[type="password"],
+.alterar-form input[type="email"] {
     width: 70%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -193,9 +204,52 @@ span h3,h5{
     max-width: 560px;
 }
 
-.container2{
-    width: 1250px;
+.titulo-quadro{
+    text-align: center;
+    width: 500px;
 }
+
+.titulo-quadro h1{
+    font-size: 24px;
+    margin-top: 16px;
+    border: 2px #ccc solid;
+}
+
+.medalhas-perfil-container{
+    padding: 5px;
+    border: 2px #ccc solid;
+    margin-top: -10px;
+    width: 500px;
+    height: auto;
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(3, .1fr);
+    grid-gap: 5px;
+}
+
+.medalhas-perfil-container h1{
+    font-size: 16px;
+}
+
+.medalha-interno{
+    margin-bottom: 5px;
+    padding: 3px;
+}
+
+.medalha-interno h2{
+    font-size: 12px;
+}
+
+.corpo-medalhas-perfil{
+    margin: auto;
+    padding: 5px;
+    width: 150px;
+    height: 170px;
+    text-align: center;
+    border-radius: 15px;
+}
+
+
 
 
 /* fim da estilização da pagina perfil */
@@ -422,4 +476,19 @@ span h3,h5{
 
 .medalhas-plenario select{
     max-width: 250px;
+}
+
+/* exibir perfil */
+
+.exibir-perfil-medalhas {
+    padding: 15px;
+    text-align: center;
+    display: inline-block;
+    margin-left: 114px;
+}
+
+.exibir-perfil-medalhas h5{
+    padding: 7px;
+    margin-bottom: 10px;
+
 }

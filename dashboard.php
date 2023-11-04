@@ -31,6 +31,8 @@ if (empty($_SESSION)) {
         <a href="#" onclick="exibirConteudo('pages/controladoria.php')">Controladoria</a>
         <a href="#" onclick="exibirConteudo('pages/votacoes_const.php')">Plenário</a>
         <a href="#" onclick="exibirConteudo('pages/perfil.php')">Meu Perfil</a>
+        <a href="#" onclick="exibirConteudo('pages/jogadores.php')">Jogadores</a>
+        <a href="#" onclick="exibirConteudo('pages/ajuda.php')">Ajuda</a>
     </aside><!--painel-lateral-->
 
     <div id="conteudo"></div>

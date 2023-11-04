@@ -8,20 +8,15 @@
     <title>Mine Laws MOD 1.0</title>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 </head>
-<body>
+<body style=" overflow: hidden;">
 
-<div class="login">
-    <div class="container2">
-        <div class="row">            
-            <div class="col-lg-4 offset-lg-4">    
-                    <div class="card">
-                        <div class="card-body">
+<div class="login-rgb">
+    <div class="container2">            
                             <div class="logo-init">
                             <h3>Área De Membros</h3>
                             <div><!--logo init-área de membros-->
-                        <div class="card-body">
                             <img src="img/logo.png" alt="">
-                            </div><!--logo-init-->
+                            
             
                         </div><!--logo-->
                         <div class="card-body"> 
@@ -45,14 +40,10 @@
                                 </div>
                                     
                                 </div>
-                            </form>
-                        </div><!--card-body-->
-                    </div><!--card-->    
-                    <p class="copy">&copy;Todos os direitos reservados a <a class="copy" href="https://github.com/solitariewolf/" target="_blank">@Solitariewolf</a></p> 
-            </div><!--col-lg-4 offset-lg-4-->           
-        </div><!--row-->
+                            </form> 
+                    <p class="copy">&copy;Todos os direitos reservados a <a class="copy" href="https://github.com/solitariewolf/" target="_blank">@Solitariewolf</a></p>          
     </div><!--container-->
-</div><!--login-->
+</div><!--login-rgb-->
     <!--Background-video-->
     <video id="background-video" autoplay loop muted poster="">
     <source src="img/mine.mp4" type="video/mp4">

@@ -8,17 +8,53 @@ if (empty($_SESSION)) {
 require_once '../config.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nome = $_POST["nome"];
+    $email = $_POST["email"];
     $usuario = $_POST["usuario"];
-    $senha = hash('sha256', $_POST["senha"]);
-
-    $sql = "UPDATE usuarios SET usuario=?, senha=? WHERE id=?";
+    $senha = !empty($_POST["senha"]) ? hash('sha256', $_POST["senha"]) : null;
+    
+    $sql = "UPDATE usuarios SET ";
+    $params = array();
+    $types = "";
+    
+    if (!empty($nome)) {
+        $sql .= "nome=?, ";
+        array_push($params, $nome);
+        $types .= "s";
+    }
+    
+    if (!empty($email)) {
+        $sql .= "email=?, ";
+        array_push($params, $email);
+        $types .= "s";
+    }
+    
+    if (!empty($usuario)) {
+        $sql .= "usuario=?, ";
+        array_push($params, $usuario);
+        $types .= "s";
+    }
+    
+    if (!empty($senha)) {
+        $sql .= "senha=?, ";
+        array_push($params, $senha);
+        $types .= "s";
+    }
+    
+    // Remove a última vírgula e espaço
+    $sql = rtrim($sql, ", ");
+    
+    $sql .= " WHERE id=?";
+    array_push($params, $_SESSION["id"]);
+    $types .= "i";
+    
     $stmt= $conn->prepare($sql);
-    $stmt->bind_param("ssi", $usuario, $senha, $_SESSION["id"]);
-
+    $stmt->bind_param($types, ...$params);
+    
     if ($stmt->execute()) {
-        echo "<script>alert('Usuário e/ou senha alterado(s) com sucesso!'); location.href='../dashboard.php';</script>";
+        echo "<script>alert('Dados alterados com sucesso!'); location.href='../dashboard.php';</script>";
     } else {
         echo "<script>alert('Erro: " . $stmt->error . "');</script>";
-    }
+    }    
 }
 ?>
