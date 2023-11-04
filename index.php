@@ -9,7 +9,7 @@
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 </head>
 <body style="overflow: hidden;">
-    <div class="">
+    <div class="login-rgb">
         <div class="container2">
             <h3>Área De Membros</h3>
             <img src="img/logo.png" alt="">

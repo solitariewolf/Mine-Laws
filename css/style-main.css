@@ -69,10 +69,7 @@ body {
 
 .login-rgb{
     width: 100%;
-    height: 100vh;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(0, 0, 0, 0.7);
+    height: 100%;
 }
 
 .login{
@@ -84,13 +81,12 @@ body {
 
 .container2{
     width: 450px;
-    margin-left: 10%;
     background-color: white;
     margin-top: 150px;
     text-align: center;
     padding: 22px;
     border-radius: 9px;
-    margin-left: 700px;
+    margin-left: 40%;
 }
 
 .row{
