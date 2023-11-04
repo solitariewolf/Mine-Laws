@@ -8,49 +8,31 @@
     <title>Mine Laws MOD 1.0</title>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 </head>
-<body style=" overflow: hidden;">
-
-<div class="login-rgb">
-    <div class="container2">            
-                            <div class="logo-init">
-                            <h3>Área De Membros</h3>
-                            <div><!--logo init-área de membros-->
-                            <img src="img/logo.png" alt="">
-                            
-            
-                        </div><!--logo-->
-                        <div class="card-body"> 
-                            <form action="login.php" method="POST">
-
-                                <div>
-                                    <div class="mb-3">
-                                        <label>Usuário:</label>
-                                        <input type="text" name="usuario" class="form-control">
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="mb-3">
-                                        <label>Senha:</label>
-                                        <input type="password" name="senha" class="form-control">
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="mb-3">
-                                        <button type="submit" class="btn btn-primary" >Enviar</button>
-                                </div>
-                                    
-                                </div>
-                            </form> 
-                    <p class="copy">&copy;Todos os direitos reservados a <a class="copy" href="https://github.com/solitariewolf/" target="_blank">@Solitariewolf</a></p>          
-    </div><!--container-->
-</div><!--login-rgb-->
-    <!--Background-video-->
+<body style="overflow: hidden;">
+    <div class="">
+        <div class="container2">
+            <h3>Área De Membros</h3>
+            <img src="img/logo.png" alt="">
+            <form action="login.php" method="POST">
+                <div class="mb-3">
+                    <label>Usuário:</label>
+                    <input type="text" name="usuario" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label>Senha:</label>
+                    <input type="password" name="senha" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Enviar</button>
+                </div>
+            </form>
+            <p class="copy">©Todos os direitos reservados a <a class="copy" href="https://github.com/solitariewolf/" target="_blank">@Solitariewolf</a></p>
+        </div>
+    </div>
     <video id="background-video" autoplay loop muted poster="">
-    <source src="img/mine.mp4" type="video/mp4">
+        <source src="img/mine.mp4" type="video/mp4">
     </video>
-    <!--Background-video-->
-<script src="js/validation.js"></script>
+    <script src="js/validation.js"></script>
 </body>
 </html>
-
 <!--Developer @Solitariewolf - Github-->

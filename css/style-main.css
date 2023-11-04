@@ -86,6 +86,11 @@ body {
     width: 450px;
     margin-left: 10%;
     background-color: white;
+    margin-top: 150px;
+    text-align: center;
+    padding: 22px;
+    border-radius: 9px;
+    margin-left: 700px;
 }
 
 .row{
