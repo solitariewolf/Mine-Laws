@@ -6,11 +6,11 @@ if (empty($_SESSION)) {
 include('../config.php');
 
 // Consulta SQL para obter as leis da tabela votacoes_leis
-$sql = "SELECT ID, Texto_Original, Novo_Texto, Votos_Positivos, Votos_Negativos, Total_Votos FROM votacoes_Leis WHERE Arquivado = 'não' AND Promulgado = 'não'";
+$sql = "SELECT ID, Texto_Original, Novo_Texto, Votos_Positivos, Votos_Negativos, Total_Votos FROM votacoes_leis WHERE Arquivado = 'não' AND Promulgado = 'não'";
 $result = $conn->query($sql);
 
 // Consulta SQL para obter as leis da tabela votacoes_leis_complementares
-$sql = "SELECT ID, Texto_Original, Novo_Texto, Votos_Positivos, Votos_Negativos, Total_Votos FROM votacoes_Leis_complementares WHERE Arquivado = 'não' AND Promulgado = 'não'";
+$sql = "SELECT ID, Texto_Original, Novo_Texto, Votos_Positivos, Votos_Negativos, Total_Votos FROM votacoes_leis_complementares WHERE Arquivado = 'não' AND Promulgado = 'não'";
 $result2 = $conn->query($sql);
 
 // Consulta SQL para obter as votacoes de honrarias
