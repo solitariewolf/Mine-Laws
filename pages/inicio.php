@@ -17,28 +17,50 @@ include('../config.php');
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 </head>
 <body>
-    <div class="corpo">
-        <div class="brasao">
-            <img src="./img/brasao.png" alt="">
-        </div>
-        <div class="presidencia">
-            <?php
-                // Consulta SQL para buscar o texto
-        $sql = "SELECT texto FROM mensagem_presidencia";
-        $result = $conn->query($sql);
+<div class="corpo">
 
-        if ($result->num_rows > 0) {
-            // Saída dos dados de cada linha
-            while($row = $result->fetch_assoc()) {
-                echo $row["texto"];
-            }
-        } else {
-            echo "0 resultados";
-        }
-        $conn->close();
-        ?>
-        </div>
+    <div class="tab" onload="openCity('Tab1')">
+        <button class="tablinks" onclick="openCity(event, 'Tab1', 'pages/mensagempresid.php')">Ínicio</button>
+        <button class="tablinks" onclick="openCity(event, 'Tab1', 'loja/loja.php')">Loja</button>
+        <button class="tablinks" onclick="openCity(event, 'Tab1', 'banco/banco.php')">Banco</button>
+    </div><!--tab-->
+        <div id="Tab1" class="tabcontent">
+        </div><!--tabcontent-->
 
-    </div><!--corpo-->
+        <div id="Tab2" class="tabcontent">
+        </div><!--tabcontent-->
+
+        <div id="Tab3" class="tabcontent">
+        </div><!--tabcontent-->
+
+</div><!--corpo-->
+            <script>
+                function openCity(evt, cityName, url) {
+                    var i, tabcontent, tablinks;
+                    tabcontent = document.getElementsByClassName("tabcontent");
+                    for (i = 0; i < tabcontent.length; i++) {
+                        tabcontent[i].style.display = "none";
+                    }
+                    tablinks = document.getElementsByClassName("tablinks");
+                    for (i = 0; i < tablinks.length; i++) {
+                        tablinks[i].className = tablinks[i].className.replace(" active", "");
+                    }
+
+                    // Cria um novo objeto XMLHttpRequest
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            // Quando a resposta do servidor estiver pronta, altere o conteúdo da div
+                            document.getElementById(cityName).innerHTML = this.responseText;
+                            document.getElementById(cityName).style.display = "block";
+                        }
+                    };
+                    // Envia a solicitação ao servidor
+                    xhttp.open("GET", url, true);
+                    xhttp.send();
+
+                    evt.currentTarget.className += " active";
+                }
+            </script>
 </body>
 </html>

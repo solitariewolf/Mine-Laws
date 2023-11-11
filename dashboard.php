@@ -35,10 +35,18 @@ if (empty($_SESSION)) {
         <a href="#" onclick="exibirConteudo('pages/ajuda.php')">Ajuda</a>
     </aside><!--painel-lateral-->
 
-    <div id="conteudo"></div>
+    <div id="conteudo">
 
+    </div>
+    <script>
+
+function updateTotal(quantity, price) {
+    document.getElementById('valor_total').value = quantity * price;
+}
+    </script>
     <script type="text/javascript" src="js/script.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </body>
 </html>
 

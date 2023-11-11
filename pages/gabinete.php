@@ -1,4 +1,6 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 session_start();
 if (empty($_SESSION)) {
     print "<script>location.href='../index.php'</script>";
@@ -64,6 +66,10 @@ WHERE Total_Votos >= 2 AND Arquivado = 'não' AND Promulgado = 'não'");
 $stmt->execute();
 $result_votacoes_medalhas = $stmt->get_result();
 
+// Consulta SQL para obter os itens
+$sql = "SELECT ID, nome, qtd, valor FROM itens";
+$resultitens = $conn->query($sql);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -86,6 +92,7 @@ $result_votacoes_medalhas = $stmt->get_result();
 <div class="tab" onload="openCity('Tab1')">
   <button class="tablinks" onclick="openCity(event, 'Tab1')">Leis e Decretos</button>
   <button class="tablinks" onclick="openCity(event, 'Tab2')">Medalhas</button>
+  <button class="tablinks" onclick="openCity(event, 'Tab3')">Loja</button>
 </div>
 
 <div id="Tab1" class="tabcontent">
@@ -449,6 +456,69 @@ $result_votacoes_medalhas = $stmt->get_result();
         </div><!--tabela medalhas-->
     </div><!--tabcontent - conteudo jogadores-->
 
+    <div id="Tab3" class="tabcontent">
+
+        <div class="display-grid">
+            <div class="form-gabinete-geral-loja">
+                <form id="form-enviar-loja" action="pages/upload.php" method="post" enctype="multipart/form-data">
+                    <label for="nome">Nome:</label><br>
+                    <input type="text" id="nome" name="nome"><br>
+                    <label for="valor">Valor em MC$:</label><br>
+                    <input type="number" id="valor" name="valor" step="0.01" min="0"><br>
+                    <label for="qtd">Quantidade:</label><br>
+                    <input type="number" id="qtd" name="qtd"><br>
+                    <label for="img">Selecione a imagem:</label><br>
+                    <input type="file" id="img" name="img" accept="image/*"><br>
+                    <input type="submit" value="Cadastrar Item">
+                </form>
+            </div><!--form-gabinete-geral-loja-->
+
+            <div class="form-gabinete-geral-loja">
+                <form method="post" action="pages/updtitem.php">
+                    <label for="item_existente">Selecione um item</label>
+                    <select class="form-control bg-light rounded" name="item_existente" id="item_existente">
+                        <option value="" style="max-width: 250px"; disabled selected>Escolha uma item</option>
+                        <?php while ($row = $resultitens->fetch_assoc()) { ?>
+                            <option value="<?php echo $row['ID']; ?>"><?php echo $row['nome']; ?></option>
+                        <?php } ?>
+                    </select>
+                    <br>
+                    <label for="nova_item">Alterar Nome:</label>
+                    <input class="form-control" type="text" name="nova_item" id="nova_item">
+                    <br>
+                    <label for="nova_qtd">Alterar Quantidade:</label>
+                    <input class="form-control" type="number" name="nova_qtd" id="nova_qtd">
+                    <br>
+                    <label for="novo_valor">Alterar Valor:</label>
+                    <input class="form-control" type="number" name="novo_valor" id="novo_valor" step="0.01" min="0">
+                    <br>
+                    <button type="submit" class="btn btn-primary">Atualizar item</button>
+                </form>
+            </div>
+        </div><!--display-grid-->
+        <h3>Itens cadastrados a venda</h3>
+        <div class="gabinete-geral-loja">
+            <?php   
+                $sql = "SELECT nome, img, qtd, valor FROM itens";
+                $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                // Saída dos dados de cada linha
+                while($row = $result->fetch_assoc()) {
+                    echo "<div class='item'>";
+                    echo "<h2>" . $row["nome"] . "</h2>";
+                    echo "<img src='" . $row["img"] . "' alt='" . $row["nome"] . "'>";
+                    echo "<p>Quantidade: " . $row["qtd"] . "</p>";
+                    echo "<p>Valor MC$: " . $row["valor"] . "</p>";
+                    echo "</div>";
+                }
+            } else {
+                echo "Nenhum item encontrado.";
+            }
+            ?>
+        </div><!--gabinete-geral-loja-->
+    </div><!--tab3-->
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>//leis constitucionais
@@ -539,9 +609,8 @@ $result_votacoes_medalhas = $stmt->get_result();
             });
         });
     });
-    </script>
 
-    <script>
+    //função das abas
     function openCity(evt, cityName) {
         var i, tabcontent, tablinks;
         tabcontent = document.getElementsByClassName("tabcontent");
@@ -555,6 +624,25 @@ $result_votacoes_medalhas = $stmt->get_result();
         document.getElementById(cityName).style.display = "block";
         evt.currentTarget.className += " active";
     }
+            //buscar itens
+                document.getElementById('item_existente').addEventListener('change', function() {
+                    var id = this.value;
+
+                    // Cria um novo objeto XMLHttpRequest
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            // Quando a resposta do servidor estiver pronta, preencha os campos do formulário
+                            var item = JSON.parse(this.responseText);
+                            document.getElementById("nova_item").value = item.nome;
+                            document.getElementById("novo_valor").value = item.valor;
+                            document.getElementById("nova_qtd").value = item.qtd;
+                        }
+                    };
+                    // Envia a solicitação ao servidor
+                    xhttp.open("GET", "pages/getItem.php?id=" + id, true);
+                    xhttp.send();
+                });
     </script>
     
 </body>
