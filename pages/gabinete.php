@@ -594,8 +594,8 @@ ORDER BY e.id DESC -- Adicione esta linha para ordenar por data em ordem decresc
 LIMIT 10 -- Adicione esta linha para limitar o resultado a 10 registros
 ";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param('ii', $_SESSION['id'], $_SESSION['id']);
-$stmt->execute();
+$stmt->bind_param('ii', $id, $id);
+$id = 1;
 $result = $stmt->get_result();
 
 if ($result->num_rows > 0) {

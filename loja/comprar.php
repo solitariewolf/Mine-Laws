@@ -65,7 +65,7 @@ if (isset($_POST['item_id']) && isset($_POST['quantidade'])) {
     $user_c = 1; // ID 1 para todas as compras
     $sql = "INSERT INTO banco_extrato (data, valor, tipo, user_c, user_d, mensagem) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sdiiis", $data, $valor_total, $tipo, $user_c, $_SESSION['id'], $mensagem);
+    $stmt->bind_param("sdsiis", $data, $valor_total, $tipo, $user_c, $_SESSION['id'], $mensagem);
     $stmt->execute();
 
     // Primeira requisição para obter o token

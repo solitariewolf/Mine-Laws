@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['textoLei'])) {
     $textoLei = $_POST['textoLei'];
 
     // SQL para inserir o texto da lei na tabela votacoes_leis_complementares
-    $sql = "INSERT INTO votacoes_leis_complementares (Texto_Original, Votos_Positivos, Votos_Negativos) VALUES (?, 0, 0)";
+    $sql = "INSERT INTO votacoes_leis_complementares (Texto_Original, Votos_Positivos, Votos_Negativos, Total_Votos) VALUES (?, 0, 0, 0)";
     
     // Preparar e executar a consulta
     $stmt = $conn->prepare($sql);
