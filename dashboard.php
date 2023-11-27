@@ -14,7 +14,7 @@ if (empty($_SESSION)) {
     <title>Mine Laws MOD 1.0</title>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 </head>
-<body onload="exibirConteudo('pages/inicio.php')">
+<body onload="exibirConteudo('pages/mensagempresid.php')">
              
     <aside id="painel-lateral" class="painel-lateral">
             <div class="botao-sair">
@@ -24,9 +24,7 @@ if (empty($_SESSION)) {
             ?>
             </div><!--botao-sair-->
         <a href="#" onclick="exibirConteudo('pages/inicio.php')">Início</a>
-        <a href="#" onclick="exibirConteudo('pages/constituicao.php')">Constituição</a>
-        <a href="#" onclick="exibirConteudo('pages/complementares.php')">Leis Complementares</a>
-        <a href="#" onclick="exibirConteudo('pages/decretos.php')">Decretos</a>
+        <a href="#" onclick="exibirConteudo('pages/leigeral.php')">Leis</a>
         <a href="#" onclick="exibirConteudo('pages/gabinete.php')">Gabiente do Presidente</a>
         <a href="#" onclick="exibirConteudo('pages/controladoria.php')">Controladoria</a>
         <a href="#" onclick="exibirConteudo('pages/votacoes_const.php')">Plenário</a>

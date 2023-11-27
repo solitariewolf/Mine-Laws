@@ -21,10 +21,12 @@ $result = $conn->query($sql);
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
 </head>
 <body>
-<div class="corpo">
     <div class="container">
-        <h1>Decretos em Vigor</h1>
-        <p>Os decretos tem validade imediata e se comparam a leis enquanto estiverem em vigor e devem ser seguidos por todos membros do jogo. Caso dois membros optem por pedir a suspensão do decreto então ele será suspenso de modo irreversível</p>
+        <div class="brasao-const">
+            <h1 style="text-align:center; font-size:20px">Decretos</h1>
+            <p>Os decretos tem validade imediata e se comparam a leis enquanto estiverem em vigor e devem ser seguidos por todos membros do jogo. Caso dois membros optem por pedir a suspensão do decreto então ele será suspenso de modo irreversível.</p>
+            <img src="img/brasao.png" alt="">
+        </div>
         <table class="table">
             <thead>
                 <tr>
@@ -59,6 +61,5 @@ $result = $conn->query($sql);
             </tbody>
         </table>
     </div>
-</div><!--corpo-->
 </body>
 </html>

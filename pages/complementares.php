@@ -21,11 +21,12 @@ $result = $conn->query($sql);
 </head>
 <body>
 
-<div class="corpo">
+
     <div class="container">
         
         <div class="brasao-const">
-            <h1 style="text-align:center; font-size:20px">Constituição Minecraftniana</h1>
+            <h1 style="text-align:center; font-size:20px">Leis complementares</h1>
+            <p>As leis complementares são leis aprovadas pela maioria dos membros, as leis complementares estão abaixo da constituição e acima dos decretos</p>
             <img src="img/brasao.png" alt="">
         </div>
         <table class="table">
@@ -47,6 +48,6 @@ $result = $conn->query($sql);
             </tbody>
         </table>
     </div><!--container-->
-</div><!--corpo-->
+
 </body>
 </html>

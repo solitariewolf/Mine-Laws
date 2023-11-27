@@ -521,8 +521,6 @@ $resultitens = $conn->query($sql);
     </div><!--tab3-->
 
     <div id="Tab4" class="tabcontent">
-            <p>conteudo</p>
-
             <div class="logo-banco"> <img src="img/banco/bank-logo.png" alt=""></div>
 
 <?php
@@ -596,6 +594,7 @@ LIMIT 10 -- Adicione esta linha para limitar o resultado a 10 registros
 $stmt = $conn->prepare($sql);
 $stmt->bind_param('ii', $id, $id);
 $id = 1;
+$stmt->execute();
 $result = $stmt->get_result();
 
 if ($result->num_rows > 0) {

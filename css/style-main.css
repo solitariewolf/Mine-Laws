@@ -86,7 +86,6 @@ body {
     text-align: center;
     padding: 22px;
     border-radius: 9px;
-    margin-left: 40%;
 }
 
 .row{
@@ -279,9 +278,11 @@ span h3,h5{
 
 .tab {
     overflow: hidden;
-    border: 1px solid #ccc;
-    background-color: #f1f1f1;
+    border: 1px solid #591d1d;
+    background-color: #7dbd8b;
     width: 550px;
+    margin-top: 20px;
+    border-radius: 5px;
 }
 
 .tab button {
@@ -295,12 +296,14 @@ span h3,h5{
 }
 
 .tab button:hover {
-    background-color: #ddd;
+    background-color: #6bcc10;
 }
 
 .tab button.active {
-    background-color: #ccc;
+    background-color: #6bcc10;
 }
+
+
 
 .tabcontent {
     display: none;
@@ -577,7 +580,8 @@ span h3,h5{
 
 .item h2 {
     margin: 0 0 10px;
-    font-size: 20px;
+    font-size: 13px;
+    font-weight: bold;
     color: #333;
     text-align: center;
 }

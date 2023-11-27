@@ -21,11 +21,11 @@ $result = $conn->query($sql);
 </head>
 <body>
 
-<div class="corpo">
     <div class="container">
         
         <div class="brasao-const">
             <h1 style="text-align:center; font-size:20px">Constituição Minecraftniana</h1>
+            <p>A constituição é a lei máxima do jogo, devendo ser aprovada por pelo menos 3 membros fundadores.</p>
             <img src="img/brasao.png" alt="">
         </div>
         <table class="table">
@@ -47,6 +47,5 @@ $result = $conn->query($sql);
             </tbody>
         </table>
     </div><!--container-->
-</div><!--corpo-->
 </body>
 </html>
