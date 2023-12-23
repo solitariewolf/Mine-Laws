@@ -1,0 +1,12 @@
+.clear{
+    clear: both;
+}
+.conteudo {
+    margin-top: 5px;
+    width: auto;
+    min-width: 1000px;
+    height: auto;
+    border: 1px #ccc solid;
+    border-radius: 5px;
+    background: mediumslateblue;
+}

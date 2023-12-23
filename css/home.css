@@ -1,0 +1,79 @@
+.inicial {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo {
+    order: 1;
+    height: 200px;
+}
+
+.logo img {
+    height: 200px;
+}
+
+.cards-container {
+    order: 2;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.banco-form jogadores-card {
+    width: 250px;
+    margin: 10px;
+}
+
+.banco-home, .loja-home, .jogadores-card {
+    padding: 15px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: hsl(335, 100%, 55%);
+    color: white;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.loja-home{
+    background-color: rgb(69, 192, 53)
+}
+
+.jogadores-card{
+    overflow: auto;
+    background-color: aqua;
+}
+
+.banco-home img, .loja-home img {
+    height: 150px;
+}
+
+.btn {
+    margin-top: 12px;
+}
+
+.box-presidencia{
+    width: 1000px;
+    text-align: center;
+}
+
+.texto-presidencia{
+    display: inline-block;
+    width: 400px;
+    border: 3px #ccc solid;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    padding: 10px;
+    background-color: antiquewhite;
+}
+
+.presidencia{
+    max-width: 450px;
+    max-height: 450px;
+}
