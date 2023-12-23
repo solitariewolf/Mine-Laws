@@ -11,6 +11,15 @@ include('config.php');
 $usuario = $_POST["usuario"];
 $senha = hash('sha256', $_POST["senha"]); // Hash da senha usando SHA-256
 
+$captcha = $_POST["captcha"];
+
+if ($captcha != $_SESSION["captcha"]) {
+    // A resposta do CAPTCHA está incorreta, bloquear a tentativa de login
+    print "<script>alert('A resposta do CAPTCHA está incorreta. Por favor, tente novamente.');</script>";
+    print "<script>location.href='index.php';</script>";
+    exit;
+}
+
 // Instruções preparadas para evitar injeção de SQL
 $sql = "SELECT * FROM usuarios WHERE usuario = ? AND senha = ?";
 $stmt = $conn->prepare($sql);

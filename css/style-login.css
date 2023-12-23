@@ -1,0 +1,92 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+	line-height:1;
+    background-image: url("../img/intro.png");
+    background-color: #cccccc;
+}
+
+.container-login {
+    height: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 150px auto;
+}
+
+.container-form {
+    padding: 50px;
+    border-radius: 25px;
+    background-color: #3b4573;
+    color: white;
+}
+
+.container-form img, label {
+    margin-bottom: 5px;
+}
+
+.captcha{
+    margin-bottom: 1rem!important;
+    width: 100px;
+    font-size: 12px;
+    text-align: center;
+    display: inline-block;
+}
+
+.captcha input{
+    background-color: grey;
+}
+
+.copy{
+    text-decoration: none;
+}
+
+.brasao{
+    height: 450px;
+    margin-top: 25px;
+}
+
+.brasao img{
+    height: 450px;
+    margin-top: 25px;
+}
+
+.brasao-gabinete{
+    background-color: #505352;
+}
+
+.brasao-gabinete img{
+    height: 100px;
+    margin-left: 40%;
+}
+
+.brasao-const{
+    height: 100%;
+}
+
+.brasao-const h1{
+    text-align: center;
+}
+
+.brasao-const img{
+    text-align: center;
+    height: 100px;
+    margin-left: 50%;
+}
+
+.presidencia{
+    width: 450px;
+    display: flex;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    padding: 28px;
+    margin-left: 25px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
