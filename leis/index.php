@@ -29,13 +29,13 @@ $result = $conn->query($sql);
             <span class="icon">
                 <i data-feather="home"></i>
             </span>
-            <a href="index.php">Home</a>
+            <a href="../dashboard">Home</a>
         </span>
         <span class="nav-item">
             <span class="icon">
                 <i data-feather="search"></i>
             </span>
-            <a href="../leis">Leis</a>
+            <a href="#">Leis</a>
         </span>
         <span class="nav-item">
             <span class="icon">
@@ -94,76 +94,35 @@ $result = $conn->query($sql);
     <div class="logo"><img src="../img/brasao.png" alt=""></div>
 
     <div class="cards-container">
+
         <div class="banco-form">
             <div class="banco-home">
-                <h3>Conta Bancária</h3>
-                <img src="../img/banco/bank-logo.png" alt="logo banco">
-                <a href="../banco" class="btn btn-primary">Acessar Banco</a>
+                <h3>Constituição</h3>
+                <img src="../img/constituicao.png" alt="logo banco">
+                <a href="../banco" class="btn btn-primary">Ver Constituição</a>
             </div>
         </div>
 
         <div class="banco-form">
             <div class="loja-home">
-                <h3>Loja</h3>
-                <img src="../img/banco/loja-logo.png" alt="logo banco">
-                <button type="submit" class="btn btn-primary">Acessar Loja</button>
+                <h3>Leis Complementares</h3>
+                <img src="../img/complementares.png" alt="logo banco">
+                <a href="../banco" class="btn btn-primary">Ver LC</a>
             </div><!--loja-home-->
         </div><!--banco-form-->
 
-        <div class="jogadores-card">
-            <div class="jogadores-home">
-                <h3>Jogadores</h3>
-                <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Cargo</th>
-                </tr>
-            </thead>
-                    <tbody>
-                        <?php
-                        while($row = $result->fetch_assoc()) {
-                            echo "<tr>";
-                            echo "<td>" . $row['nome'] . "</td>";
-                            if ($row['tipo'] == 2) {
-                                echo "<td>Presidente</td>";
-                            } else if ($row['tipo'] == 1) {
-                                echo "<td>Membro Fundador</td>";
-                            } else {
-                                echo "<td></td>";
-                            }               
-                        }
-                        ?>
-                    </tbody>
-                </table>
+        <div class="banco-form">
+            <div class="loja-home">
+                <h3>Decretos</h3>
+                <img src="../img/decretos.png" alt="logo banco">
+                <a href="../banco" class="btn btn-primary">Ver Decretos</a>
             </div><!--loja-home-->
         </div><!--banco-form-->
+
+            </div><!--loja-home-->
+        </div><!--banco-form-->
+        
     </div><!--cards-container-->
-
-</div><!--inicial-->
-
-<div class="box-presidencia">
-    <div class="texto-presidencia">
-        <div class="presidencia">
-            <h3>Mensagem da Presidência</h3>
-                <?php
-                    // Consulta SQL para buscar o texto
-            $sql = "SELECT texto FROM mensagem_presidencia";
-            $result = $conn->query($sql);
-
-            if ($result->num_rows > 0) {
-                // Saída dos dados de cada linha
-                while($row = $result->fetch_assoc()) {
-                    echo $row["texto"];
-                }
-            } else {
-                echo "0 resultados";
-            }
-            $conn->close();
-            ?>
-        </div>
-    </div>
-</div>
 
 </div><!--conteudo-->
 

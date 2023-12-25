@@ -20,8 +20,7 @@ $result = $stmt->get_result();
 $row = $result->fetch_assoc();
 
 if ($row['money'] < $valor) {
-    // Exibe um alerta de erro e redireciona
-    echo "<script>alert('Saldo insuficiente para realizar a transferência.'); location.href='../dashboard.php';</script>";
+    echo "Saldo insuficiente para realizar a transferência.";
     exit;
 }
 
@@ -50,15 +49,13 @@ try {
     // Commit da transação
     $conn->commit();
 
-    // Exibe um alerta de sucesso
-    echo "<script>alert('Transferência realizada com sucesso!'); window.dispatchEvent(new CustomEvent('transferenciaSucesso'));</script>";
+    // Exibe uma mensagem de sucesso
+    echo "Transferência realizada com sucesso!";
 } catch (Exception $e) {
     // Rollback da transação em caso de erro
     $conn->rollback();
 
-    // Exibe um alerta de erro
-    echo "<script>alert('Erro na transferência: " . $e->getMessage() . "');</script>";
+    // Exibe uma mensagem de erro
+    echo "Erro na transferência: " . $e->getMessage();
 }
 
-echo "<script>location.href='../dashboard.php';</script>";
-?>

@@ -27,6 +27,7 @@
     margin: 10px;
 }
 
+
 .banco-home, .loja-home, .jogadores-card {
     padding: 15px;
     height: 300px;
@@ -76,4 +77,9 @@
 .presidencia{
     max-width: 450px;
     max-height: 450px;
+}
+
+.banco-form{
+    max-width: 250px;
+    min-width: 250px;
 }

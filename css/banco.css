@@ -113,3 +113,11 @@ table th, table td {
     padding: 15px;
     text-align: left;
 }
+#mensagem{
+    width: 200px;
+    height: 50px;
+    color: white;
+    background-color: #ff5100;
+    border-radius: 12px;
+    padding: 5px;
+}

@@ -88,7 +88,7 @@ include('../config.php');
 
 <div class="formularios-banco">
     <div class="logo-banco"> <img src="../img/banco/bank-logo.png" alt=""></div>
-
+    <div id="mensagem"></div>
     <?php
     // Pega o ID do usuário da sessão
     $id_usuario = $_SESSION['id'];
@@ -109,8 +109,9 @@ include('../config.php');
     // Exibe a mensagem
     echo "<p class='saldo-inicio'>Olá " . $resultado['nome'] . ", seu saldo é de MC$: " . $money_formatado . "</p>";
     ?>
-    <div class="duas-primeiras">
 
+    <div class="duas-primeiras">
+    
     <div class="form-transferir">
         <h1>Relizar transferência entre contas</h1>
             <form action="transferir.php" method="post">
@@ -137,7 +138,7 @@ include('../config.php');
             <label for="valor">Valor:</label><br>
             <input type="number" id="valor" name="valor" min="0" step="0.01"><br>
             <label for="mensagem">Mensagem:</label><br>
-            <textarea id="mensagem" name="mensagem"></textarea><br>
+            <textarea id="mensagem-texto" name="mensagem"></textarea><br>
         <input type="submit" value="Transferir">
         </form>
     </div><!--form-transferir-->
@@ -188,6 +189,22 @@ include('../config.php');
     </script>
     <script type="text/javascript" src="../js/script.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        $("form").on("submit", function(event){
+            event.preventDefault();
+
+            $.ajax({
+                url: 'transferir.php',
+                type: 'post',
+                data: $(this).serialize(),
+                success: function(response){
+                    $("#mensagem").html(response);
+                }
+            });
+        });
+    });
+    </script>
 </body>
 </html>
 
