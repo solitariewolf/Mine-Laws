@@ -1,7 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-session_start();
 if (empty($_SESSION)) {
     print "<script>location.href='../index.php'</script>";
 }
@@ -35,14 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Outras ações com base no $lei_id (por exemplo, envio de votação)
 }
 
-// Consulta SQL para obter as leis da tabela "leis"
-$sql = "SELECT ID, Texto FROM leis";
-$result_leis = $conn->query($sql);
 
-// Recupere as leis que receberam pelo menos 3 votos
-$stmt = $conn->prepare("SELECT * FROM votacoes_leis WHERE Total_Votos >= 3 AND Arquivado = 'não' AND Promulgado = 'não'");
-$stmt->execute();
-$result_votacoes = $stmt->get_result();
 
 // Consulta SQL para obter as leis da tabela "leis complementares"
 $sql = "SELECT ID, Texto FROM complementar";
@@ -154,64 +144,7 @@ $resultitens = $conn->query($sql);
         </div>  
 </div>      
 <!--==============fim da seção de abertura presidencial==============-->
-<!--==============início da seção dos formulários constitucionais==============-->
-        <div style="border: 3px solid #ccc; margin-top: 15px">
-            <h3 style="margin-top: 10px; color: #a84a32">Constituição &#128211</h3>
-            <!--seção de envio de nova lei-->
-                <div class="container">
-                <h1>Nova Lei Constitucional</h1>
-                    <form action="pages/enviar_lei.php" method="post">
-                        <div class="mb-3">
-                            <label for="textoLei" class="form-label">Caso deseje fazer uma nova lei insira o texto abaixo, para que uma nova lei constitucional entre em vigor é necessário 3 votos positivos dos membros fundadores:</label>
-                            <textarea class="form-control" id="textoLei" name="textoLei" rows="5"></textarea>
-                        </div>
-                    <button type="submit" class="btn btn-primary">Enviar Ao Plenário</button>
-                    </form>
-                </div>
 
-            <!--seção de alterar lei existente-->
-            <div class="container">
-                <h1>Modificar Lei Constitucional Existente</h1>
-                <form method="post" action="pages/modificar.php">
-                    <label for="lei_existente">Selecione uma lei existente para alterar, para modificar lei existente na constituição são necessários 3 votos positivos dos membros fundadores:</label>
-                    <select class="form-control bg-light rounded" name="lei_existente" id="lei_existente">
-                        <option value="" style="max-width: 250px"; disabled selected>Escolha uma lei</option>
-                        <?php while ($row = $result_leis->fetch_assoc()) { ?>
-                            <option value="<?php echo $row['ID']; ?>"><?php echo $row['Texto']; ?></option>
-                        <?php } ?>
-                    </select>
-                    <br>
-                    <label for="nova_lei">Digite a nova lei:</label>
-                    <input class="form-control type="text" name="nova_lei" id="nova_lei">
-                    <br>
-                    <button type="submit" class="btn btn-primary">Enviar Ao Plenário</button>
-                </form>
-            </div>
-            
-            <!--seção das leis votadas no plenário-->
-            <div class="container">
-                <h1>Leis para Promulgação ou Arquivamento</h1>
-                <div class="promulgacao">
-                <?php while ($row = $result_votacoes->fetch_assoc()) { ?>
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Lei ID: <?php echo $row['ID']; ?></h5>
-                            <p class="card-text">Texto Original: <?php echo $row['Texto_Original']; ?></p>
-                            <p class="card-text">Novo Texto: <?php echo $row['Novo_Texto']; ?></p>
-                            <p class="card-text">Votos Positivos: <?php echo $row['Votos_Positivos']; ?></p>
-                            <p class="card-text">Votos Negativos: <?php echo $row['Votos_Negativos']; ?></p>
-                            <?php if ($row['Votos_Positivos'] >= 3) { ?>
-                                <button type="button" class="btn btn-success" data-id="<?php echo $row['ID']; ?>">Promulgar</button>
-                            <?php } else { ?>
-                                <button type="button" class="btn btn-danger" data-id="<?php echo $row['ID']; ?>">Arquivar</button>
-                            <?php } ?>
-                        </div>
-                    </div>
-                <?php } ?>
-                </div><!--promulgação-->
-            </div>
-        </div>
-<!--==============fim da seção dos formulários constitucionais==============-->
 <!--==============Início da seção dos formulários de leis complementares==============-->
         <div style="border: 3px solid #ccc; margin-top: 15px">
             <!--seção de envio de nova lei complementar-->
@@ -617,35 +550,7 @@ if ($result->num_rows > 0) {
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>//leis constitucionais
-    $(document).ready(function(){
-        $(".btn-danger").click(function(){
-            var lei_id = $(this).data('id');
-            $.ajax({
-                url: 'pages/arquivar_lei.php',
-                type: 'post',
-                data: {id: lei_id},
-                success: function(response){
-                    alert(response);
-                }
-            });
-        });
-    });
 
-        $(document).ready(function(){
-        $(".btn-success").click(function(){
-            var lei_id = $(this).data('id');
-            $.ajax({
-                url: 'pages/promulgar_lei.php',
-                type: 'post',
-                data: {id: lei_id},
-                success: function(response){
-                    alert(response);
-                }
-            });
-        });
-    });
-    </script>
 
     <script>//leis complementares
     $(document).ready(function(){
