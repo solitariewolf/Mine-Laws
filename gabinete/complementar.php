@@ -13,14 +13,14 @@ if ($_SESSION['tipo'] != '2') {
     // Coloque aqui o código para usuários do tipo 2
 }
 
-// Consulta SQL para obter as leis da tabela "leis"
-$sql = "SELECT ID, Texto FROM leis";
-$result_leis = $conn->query($sql);
+// Consulta SQL para obter as leis da tabela "leis complementares"
+$sql = "SELECT ID, Texto FROM complementar";
+$result_leis2 = $conn->query($sql);
 
 // Recupere as leis que receberam pelo menos 3 votos
-$stmt = $conn->prepare("SELECT * FROM votacoes_leis WHERE Total_Votos >= 3 AND Arquivado = 'não' AND Promulgado = 'não'");
+$stmt = $conn->prepare("SELECT * FROM votacoes_leis_complementares WHERE Total_Votos >= 2 AND Arquivado = 'não' AND Promulgado = 'não'");
 $stmt->execute();
-$result_votacoes = $stmt->get_result();
+$result_votacoes2 = $stmt->get_result();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -105,32 +105,32 @@ $result_votacoes = $stmt->get_result();
 
 <div class="inicial">
     <div class="logo"><img src="../img/brasao.png" alt=""></div>
-    <h5>Alterar constituição ou propor nova lei constitucional.</h5>
 </div>
 
-<!--==============início da seção dos formulários constitucionais==============-->
-        <div class="section-leis">
-            <h3 style="margin-top: 10px; color: #a84a32">Constituição &#128211</h3>
-            <!--seção de envio de nova lei-->
-                <div class="container">
-                <h1>Nova Lei Constitucional</h1>
-                    <form action="pages/enviar_lei.php" method="post">
+    <!--==============Início da seção dos formulários de leis complementares==============-->
+    <div class="section-leis">
+            <!--seção de envio de nova lei complementar-->
+            <h3 style="margin-top: 10px; color: #a89d32">Leis complementares &#128216</h3>
+            <div class="container">
+                <h1>Nova Lei Complementar</h1>
+                    <form action="pages/enviar_lei_complementar.php" method="post">
                         <div class="mb-3">
-                            <label for="textoLei" class="form-label">Caso deseje fazer uma nova lei insira o texto abaixo, para que uma nova lei constitucional entre em vigor é necessário 3 votos positivos dos membros fundadores e após isso a promulgação pelo presidente:</label>
+                            <label for="textoLei" class="form-label">Caso deseje fazer uma nova lei complementar insira o texto abaixo, para que uma nova lei complementar entre em vigor é necessário 2 votos positivos dos membros fundadores:</label>
                             <textarea class="form-control" id="textoLei" name="textoLei" rows="5"></textarea>
                         </div>
                     <button type="submit" class="btn btn-primary">Enviar Ao Plenário</button>
                     </form>
                 </div>
 
+
             <!--seção de alterar lei existente-->
             <div class="container">
-                <h1>Modificar Lei Constitucional Existente</h1>
-                <form method="post" action="pages/modificar.php">
-                    <label for="lei_existente">Selecione uma lei existente para alterar, para modificar lei existente na constituição são necessários 3 votos positivos dos membros fundadores:</label>
+                <h1>Modificar Lei Complementar Existente</h1>
+                <form method="post" action="pages/modificar_complementar.php">
+                    <label for="lei_existente">Selecione uma lei existente para alterar, para modificar lei complementar existente são necessários 2 votos positivos dos membros fundadores:</label>
                     <select class="form-control bg-light rounded" name="lei_existente" id="lei_existente">
                         <option value="" style="max-width: 250px"; disabled selected>Escolha uma lei</option>
-                        <?php while ($row = $result_leis->fetch_assoc()) { ?>
+                        <?php while ($row = $result_leis2->fetch_assoc()) { ?>
                             <option value="<?php echo $row['ID']; ?>"><?php echo $row['Texto']; ?></option>
                         <?php } ?>
                     </select>
@@ -142,12 +142,12 @@ $result_votacoes = $stmt->get_result();
                 </form>
             </div>
 
-            
-            <!--seção das leis votadas no plenário-->
+
+                            <!--seção das leis votadas no plenário-->
             <div class="container">
                 <h1>Leis para Promulgação ou Arquivamento</h1>
                 <div class="promulgacao">
-                <?php while ($row = $result_votacoes->fetch_assoc()) { ?>
+                <?php while ($row = $result_votacoes2->fetch_assoc()) { ?>
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">Lei ID: <?php echo $row['ID']; ?></h5>
@@ -155,10 +155,10 @@ $result_votacoes = $stmt->get_result();
                             <p class="card-text">Novo Texto: <?php echo $row['Novo_Texto']; ?></p>
                             <p class="card-text">Votos Positivos: <?php echo $row['Votos_Positivos']; ?></p>
                             <p class="card-text">Votos Negativos: <?php echo $row['Votos_Negativos']; ?></p>
-                            <?php if ($row['Votos_Positivos'] >= 3) { ?>
-                                <button type="button" class="btn btn-success" data-id="<?php echo $row['ID']; ?>">Promulgar</button>
+                            <?php if ($row['Votos_Positivos'] >= 2) { ?>
+                                <button type="button" class="btn-success2" data-id="<?php echo $row['ID']; ?>">Promulgar</button>
                             <?php } else { ?>
-                                <button type="button" class="btn btn-danger" data-id="<?php echo $row['ID']; ?>">Arquivar</button>
+                                <button type="button" class="btn-danger2" data-id="<?php echo $row['ID']; ?>">Arquivar</button>
                             <?php } ?>
                         </div>
                     </div>
@@ -166,7 +166,8 @@ $result_votacoes = $stmt->get_result();
                 </div><!--promulgação-->
             </div>
         </div>
-<!--==============fim da seção dos formulários constitucionais==============-->
+<!--==============fim da seção dos formulários de leis complementares==============-->
+
 </div><!--conteudo-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript" src="../js/script.js"></script>

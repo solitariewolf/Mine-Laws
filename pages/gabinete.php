@@ -32,17 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Outras ações com base no $lei_id (por exemplo, envio de votação)
 }
 
-
-
-// Consulta SQL para obter as leis da tabela "leis complementares"
-$sql = "SELECT ID, Texto FROM complementar";
-$result_leis2 = $conn->query($sql);
-
-// Recupere as leis que receberam pelo menos 3 votos
-$stmt = $conn->prepare("SELECT * FROM votacoes_leis_complementares WHERE Total_Votos >= 2 AND Arquivado = 'não' AND Promulgado = 'não'");
-$stmt->execute();
-$result_votacoes2 = $stmt->get_result();
-
 // Consulta SQL para obter os decretos
 $sql = "SELECT ID, Texto, Votos_Derrubar FROM decretos";
 $resultdec = $conn->query($sql);
@@ -553,33 +542,7 @@ if ($result->num_rows > 0) {
 
 
     <script>//leis complementares
-    $(document).ready(function(){
-        $(".btn-danger2").click(function(){
-            var lei_id = $(this).data('id');
-            $.ajax({
-                url: 'pages/arquivar_lei_complementar.php',
-                type: 'post',
-                data: {id: lei_id},
-                success: function(response){
-                    alert(response);
-                }
-            });
-        });
-    });
 
-        $(document).ready(function(){
-        $(".btn-success2").click(function(){
-            var lei_id = $(this).data('id');
-            $.ajax({
-                url: 'pages/promulgar_lei_complementar.php',
-                type: 'post',
-                data: {id: lei_id},
-                success: function(response){
-                    alert(response);
-                }
-            });
-        });
-    });
     </script>
 
 <script>//medalhas

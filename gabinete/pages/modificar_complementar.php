@@ -4,7 +4,7 @@ if (empty($_SESSION)) {
     print "<script>location.href='../index.php'</script>";
     exit;
 }
-include('../config.php');
+include('../../config.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lei_existente']) && isset($_POST['nova_lei'])) {
     $lei_id = $_POST['lei_existente'];
@@ -42,5 +42,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lei_existente']) && i
 }
 
 
-echo "<script>location.href='../dashboard.php';</script>";
+echo "<script>location.href='../complementar.php';</script>";
 ?>

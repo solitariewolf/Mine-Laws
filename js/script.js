@@ -40,3 +40,41 @@ $(document).ready(function(){
 });
 
 //fim leis constitucionais
+
+//inicio leis complementares
+
+$(document).ready(function(){
+    $(".btn-danger2").click(function(){
+        var lei_id = $(this).data('id');
+        $.ajax({
+            url: 'pages/arquivar_lei_complementar.php',
+            type: 'post',
+            data: {id: lei_id},
+            success: function(response){
+                alert(response);
+            }
+        });
+    });
+});
+
+    $(document).ready(function(){
+    $(".btn-success2").click(function(){
+        var lei_id = $(this).data('id');
+        $.ajax({
+            url: 'pages/promulgar_lei_complementar.php',
+            type: 'post',
+            data: {id: lei_id},
+            success: function(response){
+                alert(response);
+            }
+        });
+    });
+});
+
+//fim leis complementares
+
+//inicio decretos
+
+
+
+//fim decretos

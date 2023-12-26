@@ -111,7 +111,7 @@ if ($_SESSION['tipo'] != '2') {
             <div class="loja-home">
                 <h3>Propor/Alterar LC</h3>
                 <img src="../img/complementares.png" alt="logo banco">
-                <a href="complementares.php" class="btn btn-primary">Acessar</a>
+                <a href="complementar.php" class="btn btn-primary">Acessar</a>
             </div><!--loja-home-->
         </div><!--banco-form-->
 
