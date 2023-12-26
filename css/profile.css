@@ -1,0 +1,106 @@
+/*estilização da pagina perfil */
+.conteudo{
+    display: flex;
+}
+
+.alterar-form {
+    margin-left: 5px;
+	margin-top: 15px;
+    width: 500px;
+    border: 2px #ccc solid;
+    float: left;
+}
+
+.container-medalhas{
+    margin-left: 5px;
+    float: right;
+}
+
+.form-alterar{
+    text-align: center;
+}
+
+span h3,h5{
+	display: block;
+    text-align: center;
+    font-weight: bold;
+}
+
+.alterar-form input[type="text"], 
+.alterar-form input[type="password"],
+.alterar-form input[type="email"] {
+    width: 70%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.alterar-form input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 70%;
+}
+
+.alterar-form input[type="submit"]:hover {
+    opacity: 0.8;
+}
+
+.corpo{
+    margin-left: 350px;
+}
+
+.formularios{
+    max-width: 560px;
+}
+
+.titulo-quadro{
+    text-align: center;
+    width: 500px;
+}
+
+.titulo-quadro h1{
+    font-size: 24px;
+    margin-top: 16px;
+    border: 2px #ccc solid;
+}
+
+.medalhas-perfil-container{
+    padding: 5px;
+    border: 2px #ccc solid;
+    margin-top: -10px;
+    width: 500px;
+    height: auto;
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(3, .1fr);
+    grid-gap: 5px;
+}
+
+.medalhas-perfil-container h1{
+    font-size: 16px;
+}
+
+.medalha-interno{
+    margin-bottom: 5px;
+    padding: 3px;
+}
+
+.medalha-interno h2{
+    font-size: 12px;
+}
+
+.corpo-medalhas-perfil{
+    margin: auto;
+    padding: 5px;
+    width: 150px;
+    height: 170px;
+    text-align: center;
+    border-radius: 15px;
+}
+

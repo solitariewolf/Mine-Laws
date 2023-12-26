@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param($types, ...$params);
     
     if ($stmt->execute()) {
-        echo "<script>alert('Dados alterados com sucesso!'); location.href='../dashboard.php';</script>";
+        echo "<script>alert('Dados alterados com sucesso!'); location.href='.';</script>";
     } else {
         echo "<script>alert('Erro: " . $stmt->error . "');</script>";
     }    

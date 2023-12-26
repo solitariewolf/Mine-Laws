@@ -60,13 +60,13 @@ $result3 = $conn->query($sql);
             <span class="icon">
                 <i data-feather="star"></i>
             </span>
-            <a href=".">Controladoria</a>
+            <a href="../controladoria">Controladoria</a>
         </span>
         <span class="nav-item">
             <span class="icon">
                 <i data-feather="star"></i>
             </span>
-            <a href="../plenario">Plenário</a>
+            <a href=".">Plenário</a>
         </span>
         <span class="nav-item">
             <span class="icon">

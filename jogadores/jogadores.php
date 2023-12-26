@@ -43,7 +43,7 @@ $result = $conn->query($sql);
                     } else {
                         echo "<td></td>";
                     }
-                    echo "<td><a href='#' onclick=\"exibirConteudo('pages/perfil_usuario.php?id=" . $row['id'] . "')\" class='btn btn-primary'>Exibir Perfil</a></td>";
+                    echo "<td><a href='#' onclick=\"exibirConteudo('perfil_usuario.php?id=" . $row['id'] . "')\" class='btn btn-primary'>Exibir Perfil</a></td>";
                     echo "</tr>";
                 }
                 ?>
@@ -51,5 +51,12 @@ $result = $conn->query($sql);
         </table>
     </div>
 </div><!--corpo-->
+<script>
+                    function exibirConteudo(pagina) {
+    // Carrega o conteúdo da página especificada
+    $('#conteudo').load(pagina);
+}
+
+                </script>
 </body>
 </html>
