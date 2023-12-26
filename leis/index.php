@@ -35,49 +35,49 @@ $result = $conn->query($sql);
             <span class="icon">
                 <i data-feather="search"></i>
             </span>
-            <a href="#">Leis</a>
+            <a href=".">Leis</a>
         </span>
         <span class="nav-item">
             <span class="icon">
                 <i data-feather="bell"></i>
             </span>
-            <a href="#">Gabinete Presidente</a>
+            <a href="../gabinete">Gabinete Presidente</a>
         </span>
         <span class="nav-item">
             <span class="icon">
                 <i data-feather="star"></i>
             </span>
-            <a href="#">Controladoria</a>
+            <a href="../controladoria">Controladoria</a>
         </span>
         <span class="nav-item">
             <span class="icon">
                 <i data-feather="star"></i>
             </span>
-            <a href="#">Plenário</a>
+            <a href="../plenario">Plenário</a>
         </span>
         <span class="nav-item">
             <span class="icon">
                 <i data-feather="star"></i>
             </span>
-            <a href="#">Meu Perfil</a>
+            <a href="../perfil">Meu Perfil</a>
         </span>
         <span class="nav-item">
             <span class="icon">
                 <i data-feather="star"></i>
             </span>
-            <a href="#">Jogadores</a>
+            <a href="../jogadores">Jogadores</a>
         </span>
         <span class="nav-item">
             <span class="icon">
                 <i data-feather="star"></i>
             </span>
-            <a href="#">Ajuda</a>
+            <a href="../ajuda">Ajuda</a>
         </span>
         <span class="nav-item">
             <span class="icon">
                 <i data-feather="star"></i>
             </span>
-            <a href="logout.php">Sair</a>
+            <a href="../dashboard/logout.php">Sair</a>
             <span class="icon">
             <?php
             print "Olá, " . $_SESSION["nome"];
@@ -99,7 +99,7 @@ $result = $conn->query($sql);
             <div class="banco-home">
                 <h3>Constituição</h3>
                 <img src="../img/constituicao.png" alt="logo banco">
-                <a href="../banco" class="btn btn-primary">Ver Constituição</a>
+                <a href="constituicao.php" class="btn btn-primary">Ver Constituição</a>
             </div>
         </div>
 
@@ -107,21 +107,21 @@ $result = $conn->query($sql);
             <div class="loja-home">
                 <h3>Leis Complementares</h3>
                 <img src="../img/complementares.png" alt="logo banco">
-                <a href="../banco" class="btn btn-primary">Ver LC</a>
+                <a href="complementares.php" class="btn btn-primary">Ver LC</a>
             </div><!--loja-home-->
         </div><!--banco-form-->
 
         <div class="banco-form">
-            <div class="loja-home">
+            <div class="loja-home" style="background-color: #329ba8">
                 <h3>Decretos</h3>
                 <img src="../img/decretos.png" alt="logo banco">
-                <a href="../banco" class="btn btn-primary">Ver Decretos</a>
+                <a href="decretos.php" class="btn btn-primary">Ver Decretos</a>
             </div><!--loja-home-->
         </div><!--banco-form-->
 
             </div><!--loja-home-->
         </div><!--banco-form-->
-        
+
     </div><!--cards-container-->
 
 </div><!--conteudo-->

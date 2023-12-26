@@ -13,19 +13,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lei_id']) && isset($_
     $usuario_id = $_SESSION['id']; // Usamos 'id' da sessão como identificador do usuário
     
     // Verifique se o usuário já votou nessa lei
-    $stmt = $conn->prepare("SELECT ID FROM votos WHERE Usuario_ID = ? AND Lei_ID = ?");
+    $stmt = $conn->prepare("SELECT ID FROM votos_medalhas WHERE Usuario_ID = ? AND Lei_ID = ?");
     $stmt->bind_param("ii", $usuario_id, $lei_id);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result->num_rows == 0) {
         // O usuário ainda não votou nessa lei, registre o voto
-        $stmt = $conn->prepare("INSERT INTO votos (Usuario_ID, Lei_ID, Voto_Pos_Neg) VALUES (?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO votos_medalhas (Usuario_ID, Lei_ID, Voto_Pos_Neg) VALUES (?, ?, ?)");
         $stmt->bind_param("iis", $usuario_id, $lei_id, $voto);
 
         if ($stmt->execute()) {
-            // Atualize a contagem de votos na tabela votacoes_leis
-            $update_sql = "UPDATE votacoes_leis SET ";
+            // Atualize a contagem de votos na tabela votacoes_medalhas
+            $update_sql = "UPDATE votacoes_medalhas SET ";
             if ($voto === "Positivo") {
                 $update_sql .= "Votos_Positivos = Votos_Positivos + 1";
             } else {
@@ -47,5 +47,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['lei_id']) && isset($_
     }
 }
 
-echo "<script>location.href='../dashboard.php';</script>";
+echo "<script>location.href='.';</script>";
 ?>

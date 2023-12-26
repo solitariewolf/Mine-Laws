@@ -29,7 +29,7 @@ $result = $conn->query($sql);
             <span class="icon">
                 <i data-feather="home"></i>
             </span>
-            <a href="index.php">Home</a>
+            <a href="../dashboard">Home</a>
         </span>
         <span class="nav-item">
             <span class="icon">
@@ -41,37 +41,37 @@ $result = $conn->query($sql);
             <span class="icon">
                 <i data-feather="bell"></i>
             </span>
-            <a href="#">Gabinete Presidente</a>
+            <a href="../gabinete">Gabinete Presidente</a>
         </span>
         <span class="nav-item">
             <span class="icon">
                 <i data-feather="star"></i>
             </span>
-            <a href="#">Controladoria</a>
+            <a href="../controladoria">Controladoria</a>
         </span>
         <span class="nav-item">
             <span class="icon">
                 <i data-feather="star"></i>
             </span>
-            <a href="#">Plenário</a>
+            <a href="../plenario">Plenário</a>
         </span>
         <span class="nav-item">
             <span class="icon">
                 <i data-feather="star"></i>
             </span>
-            <a href="#">Meu Perfil</a>
+            <a href="../perfil">Meu Perfil</a>
         </span>
         <span class="nav-item">
             <span class="icon">
                 <i data-feather="star"></i>
             </span>
-            <a href="#">Jogadores</a>
+            <a href="../jogadores">Jogadores</a>
         </span>
         <span class="nav-item">
             <span class="icon">
                 <i data-feather="star"></i>
             </span>
-            <a href="#">Ajuda</a>
+            <a href="../ajuda">Ajuda</a>
         </span>
         <span class="nav-item">
             <span class="icon">

@@ -8,6 +8,7 @@
 .logo {
     order: 1;
     height: 200px;
+    text-align: center;
 }
 
 .logo img {
@@ -46,6 +47,11 @@
     background-color: rgb(69, 192, 53)
 }
 
+.loja-home h3, .banco-home h3{
+    font-size: 20px;
+}
+
+
 .jogadores-card{
     overflow: auto;
     background-color: aqua;
@@ -82,4 +88,9 @@
 .banco-form{
     max-width: 250px;
     min-width: 250px;
+}
+
+.votacoes{
+    width: 1000px;
+    text-align: center;
 }

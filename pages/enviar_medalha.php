@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['usuario']) && isset($
     $medalha = $_POST['medalha'];
 
     // SQL para inserir o usuário e a medalha na tabela votacoes_medalhas
-    $sql = "INSERT INTO votacoes_medalhas (Usuario, Medalha, Votos_Positivos, Votos_Negativos) VALUES (?, ?, 0, 0)";
+    $sql = "INSERT INTO votacoes_medalhas (Usuario, Medalha, Votos_Positivos, Votos_Negativos, Total_Votos) VALUES (?, ?, 0, 0, 0)";
     
     // Preparar e executar a consulta
     $stmt = $conn->prepare($sql);

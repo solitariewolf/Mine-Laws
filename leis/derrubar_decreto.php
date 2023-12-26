@@ -35,5 +35,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ID'])) {
     }
 }
 
-echo "<script>location.href='../dashboard.php';</script>";
+echo "<script>location.href='decretos.php';</script>";
 ?>
