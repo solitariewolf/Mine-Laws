@@ -6,5 +6,5 @@ define('BASE', 'sislogin');
 
 $conn = new MySQLi(HOST, USER, PASS, BASE);
 
-define('CLIENT_ID', '');
+define('CLIENT_ID', '1');
 define('CLIENT_SECRET', '');
