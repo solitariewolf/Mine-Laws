@@ -3,7 +3,7 @@ session_start();
 if (empty($_SESSION)) {
     print "<script>location.href='../index.php'</script>";
 }
-include('../config.php');
+include('../../config.php');
 
 // Pegar o texto do formulário
 $texto = $_POST['texto'];
@@ -19,5 +19,5 @@ if ($stmt->execute()) {
 }
 
 
-echo "<script>location.href='../dashboard.php';</script>";
+echo "<script>location.href='../micom.php';</script>";
 ?>

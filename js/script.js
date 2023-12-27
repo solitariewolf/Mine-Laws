@@ -78,3 +78,59 @@ $(document).ready(function(){
 
 
 //fim decretos
+
+//inicio medalhas
+    $(document).ready(function(){
+    $(".btn-danger3").click(function(){
+        var lei_id = $(this).data('id');
+        $.ajax({
+            url: 'pages/arquivar_medalha.php',
+            type: 'post',
+            data: {id: lei_id},
+            success: function(response){
+                alert(response);
+            }
+        });
+    });
+});
+
+    $(document).ready(function(){
+    $(".btn-success3").click(function(){
+        var lei_id = $(this).data('id');
+        $.ajax({
+            url: 'pages/promulgar_medalha.php',
+            type: 'post',
+            data: {id: lei_id},
+            success: function(response){
+                alert(response);
+            }
+        });
+    });
+});
+//fim medalhas
+
+//loja
+
+function updateTotal(quantity, price) {
+    document.getElementById('valor_total').value = quantity * price;
+}
+
+            //buscar itens
+            document.getElementById('item_existente').addEventListener('change', function() {
+                var id = this.value;
+
+                // Cria um novo objeto XMLHttpRequest
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        // Quando a resposta do servidor estiver pronta, preencha os campos do formulário
+                        var item = JSON.parse(this.responseText);
+                        document.getElementById("nova_item").value = item.nome;
+                        document.getElementById("novo_valor").value = item.valor;
+                        document.getElementById("nova_qtd").value = item.qtd;
+                    }
+                };
+                // Envia a solicitação ao servidor
+                xhttp.open("GET", "pages/getItem.php?id=" + id, true);
+                xhttp.send();
+            });

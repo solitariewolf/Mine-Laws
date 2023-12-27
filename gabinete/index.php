@@ -127,7 +127,7 @@ if ($_SESSION['tipo'] != '2') {
             <div class="loja-home" style="background-color: #FF5733">
                 <h3>Ministério da Comunicação</h3>
                 <img src="../img/comunicacao.png" alt="logo banco">
-                <a href="decretos.php" class="btn btn-primary">Acessar</a>
+                <a href="micom.php" class="btn btn-primary">Acessar</a>
             </div><!--loja-home-->
         </div><!--banco-form-->
 
@@ -135,7 +135,7 @@ if ($_SESSION['tipo'] != '2') {
             <div class="loja-home" style="background-color: #33FF57">
                 <h3>Entregar Condecorações</h3>
                 <img src="../img/condecoracao.png" alt="logo banco">
-                <a href="decretos.php" class="btn btn-primary">Acessar</a>
+                <a href="medalhas.php" class="btn btn-primary">Acessar</a>
             </div><!--loja-home-->
         </div><!--banco-form-->
 
@@ -143,7 +143,7 @@ if ($_SESSION['tipo'] != '2') {
             <div class="loja-home" style="background-color: #3357FF">
                 <h3>Gerenciar Loja</h3>
                 <img src="../img/loja.png" alt="logo banco">
-                <a href="decretos.php" class="btn btn-primary">Acessar</a>
+                <a href="manageloja.php" class="btn btn-primary">Acessar</a>
             </div><!--loja-home-->
         </div><!--banco-form-->
         
@@ -168,7 +168,7 @@ if ($_SESSION['tipo'] != '2') {
             <div class="loja-home" style="background-color: #FF5733">
                 <h3>Ministério do Interior</h3>
                 <img src="../img/interior.png" alt="logo banco">
-                <a href="decretos.php" class="btn btn-primary">Acessar</a>
+                <a href="minin.php" class="btn btn-primary">Acessar</a>
             </div><!--loja-home-->
         </div><!--banco-form-->
             

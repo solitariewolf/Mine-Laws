@@ -13,9 +13,14 @@ if ($_SESSION['tipo'] != '2') {
     // Coloque aqui o código para usuários do tipo 2
 }
 
-// Consulta SQL para obter os decretos
-$sql = "SELECT ID, Texto, Votos_Derrubar FROM decretos";
-$resultdec = $conn->query($sql);
+// Recupere as honrarias que receberam pelo menos 3 votos
+$stmt = $conn->prepare("SELECT votacoes_medalhas.id, usuarios.Nome AS Usuario, medalhas.nome AS Medalha, Votos_Positivos, Votos_Negativos, Total_Votos 
+FROM votacoes_medalhas 
+JOIN usuarios ON votacoes_medalhas.Usuario = usuarios.id
+JOIN medalhas ON votacoes_medalhas.Medalha = medalhas.id
+WHERE Total_Votos >= 2 AND Arquivado = 'não' AND Promulgado = 'não'");
+$stmt->execute();
+$result_votacoes_medalhas = $stmt->get_result();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -102,61 +107,57 @@ $resultdec = $conn->query($sql);
     <div class="logo"><img src="../img/brasao.png" alt=""></div>
 </div>
 
-<!--==============Início da seção dos formulários de Decretos==============-->
-    <!--seção sobre decretos-->
-    <div class="section-leis">
-<h3 style="margin-top: 10px; color: #128221">Decretos Presidenciais &#128220</h3>
-    <div class="container">
-        <p>O decreto presidencial é o maior poder do presidente, decretos tem validade imediata como lei, mas podem ser derrubados se dois dos membros fundadores decidirem derrubar o decreto, observe que o decreto não pode passar por cima das leis complementares nem da constituição.</p>
-        <form method="post" action="pages/inserir_decreto.php">
-            <label for="texto_decreto">Digite o texto do decreto:</label>
-            <textarea class="form-control" name="texto_decreto" id="texto_decreto"></textarea>
-            <br>
-            <button type="submit" class="btn btn-primary">Inserir Decreto</button>
-        </form>
-    </div><!--container-->
 <div class="container">
-    <h1>Decretos em Vigor</h1>
-    <p>Lista de decretos em vigor ou suspenso, observe que ao apertar em suspender o decreto será suspenso imediatamente de modo irreversível.</p>
-    <div class="decretos">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Número Decreto</th>
-                    <th>Texto Original</th>
-                    <th>Ação</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while ($row = $resultdec->fetch_assoc()) { ?>
-                    <tr>
-                        <td><?php echo $row['ID']; ?></td>
-                        <td>
-                            <?php 
-                            if ($row['Votos_Derrubar'] >= 2) {
-                                echo '<b>Decreto Suspenso</b> - <s>' . $row['Texto'] . '</s>';
-                            } else {
-                                echo $row['Texto'];
-                            }
-                            ?>
-                        </td>
-                        <td>
-                        <form method="post" action="pages/suspender_decreto.php">
-                            <input type="hidden" name="ID" value="<?php echo $row['ID']; ?>">
-                            <button type="submit" name="voto" value="Positivo" class="btn btn-danger">Suspender Decreto</button>
-                        </form>
-                        </td>
-                    </tr>
+
+    <h4>Medalhas - São honrarias dadas aos jogadores pelo presidente com aprovação dos membros fundadores</h4>
+    <div class="medalhas-plenario-geral">
+        <div class="medalhas-plenario">
+            <h2>Enviar Honraria Para o Plenário</h2>
+
+            <form action="pages/enviar_medalha.php" method="post">
+            <label for="usuario">Jogador:</label><br>
+            <select id="usuario" name="usuario" class="form-control bg-light rounded">
+                <?php
+                $usuarios3 = $conn->query("SELECT * FROM usuarios");
+                foreach ($usuarios3 as $usuario) {
+                    echo "<option value=\"" . $usuario['id'] . "\">" . $usuario['nome'] . "</option>";
+                }
+                ?>
+            </select><br>
+            <label for="medalha">Medalha:</label><br>
+            <select id="medalha" name="medalha" class="form-control bg-light rounded">
+                <?php
+                $medalhas = $conn->query("SELECT * FROM medalhas");
+                foreach ($medalhas as $medalha) {
+                    echo "<option value=\"" . $medalha['id'] . "\">" . $medalha['nome'] . "</option>";
+                }
+                ?>
+            </select><br>
+            <input class="btn btn-danger" type="submit" value="Enviar a Plenário">
+            </form>
+        </div><!--medalhas-plenario-->
+
+        <div class="medalhas-plenario">
+                <h2>Medalhas já votadas</h2>
+                <div class="promulgacao">
+                <?php while ($row = $result_votacoes_medalhas->fetch_assoc()) { ?>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Votação N° <?php echo $row['id']; ?></h5>
+                            <p class="card-text">Usuário: <?php echo $row['Usuario']; ?></p>
+                            <p class="card-text">Medalha: <?php echo $row['Medalha']; ?></p>
+                            <?php if ($row['Votos_Positivos'] >= 2) { ?>
+                                <button type="button" class="btn-success3" data-id="<?php echo $row['id']; ?>">Promulgar</button>
+                            <?php } else { ?>
+                                <button type="button" class="btn-danger3" data-id="<?php echo $row['id']; ?>">Arquivar</button>
+                            <?php } ?>
+                        </div>
+                    </div>
                 <?php } ?>
-            </tbody>
-        </table>
-    </div><!--decretos-->
-
-        
-    </div>
-
-</div><!--conteudo leis e decretos-->
-<!--==============fim da seção dos formulários de Decretos==============-->
+                </div><!--promulgação-->
+        </div><!--medalhas-plenario-->
+    </div><!--medalhas-plenario-geral-->
+</div>
 
 </div><!--conteudo-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

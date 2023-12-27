@@ -3,7 +3,7 @@ session_start();
 if (empty($_SESSION)) {
     print "<script>location.href='../index.php'</script>";
 }
-include('../config.php');
+include('../../config.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['usuario']) && isset($_POST['medalha'])) {
     $usuario = $_POST['usuario'];
@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['usuario']) && isset($
     if ($stmt->execute([$usuario, $medalha])) {
         // Medalha enviada com sucesso, exibir alerta e redirecionar
         echo "<script>alert('Honraria enviada ao plneário com sucesso!');</script>";
-        echo "<script>location.href='../dashboard.php';</script>";
+        echo "<script>location.href='../medalhas.php';</script>";
         exit;
     } else {
         echo "Erro ao enviar a medalha. Por favor, tente novamente.";

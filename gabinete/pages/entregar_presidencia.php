@@ -3,7 +3,7 @@ session_start();
 if (empty($_SESSION)) {
     print "<script>location.href='../index.php'</script>";
 }
-include('../config.php');
+include('../../config.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['usuario'])) {
     $usuario_id = $_POST['usuario'];
@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['usuario'])) {
         // Se ambas as consultas foram bem-sucedidas, confirmar a transação
         $conn->commit();
 
-        echo "<script>alert('Presidência entregue com sucesso!');</script>";
+        echo "<script>alert('Presidência entregue com sucesso, você será descontado e poderá logar novamente!');</script>";
     } catch (Exception $e) {
         // Se houve um erro, reverter a transação
         $conn->rollback();
@@ -33,5 +33,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['usuario'])) {
     }
 }
 
-echo "<script>location.href='../dashboard.php';</script>";
+echo "<script>location.href='../../dashboard/logout.php';</script>";
 ?>

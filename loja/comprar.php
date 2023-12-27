@@ -30,13 +30,13 @@ if (isset($_POST['item_id']) && isset($_POST['quantidade'])) {
 
     $valor_total = $valor_item * $quantidade;
     if ($saldo < $valor_total) {
-        echo "<script>alert('Saldo insuficiente.'); window.location.href = '../dashboard.php';</script>";
+        echo "<script>alert('Saldo insuficiente.'); window.location.href = '.';</script>";
         exit();
     }
 
     // Verifique se a quantidade de itens disponíveis é suficiente
     if ($quantidade_disponivel < $quantidade) {
-        echo "<script>alert('Quantidade de itens insuficiente.'); window.location.href = '../dashboard.php';</script>";
+        echo "<script>alert('Quantidade de itens insuficiente.'); window.location.href = '.';</script>";
         exit();
     }
 
@@ -100,7 +100,7 @@ if (isset($_POST['item_id']) && isset($_POST['quantidade'])) {
     $result = file_get_contents($url, false, $context);
     if ($result === FALSE) { /* Handle error */ }
     else {
-        echo "<script>alert('Compra efetuada com sucesso.'); window.location.href = '../dashboard.php';</script>";
+        echo "<script>alert('Compra efetuada com sucesso.'); window.location.href = '.';</script>";
     }
 }
 ?>

@@ -3,7 +3,7 @@ session_start();
 if (empty($_SESSION)) {
     print "<script>location.href='../index.php'</script>";
 }
-include('../config.php');
+include('../../config.php');
 
 // Verifica se o formulário foi submetido
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -35,10 +35,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $nome = $_POST['nome'];
             $valor = $_POST['valor'];
             $qtd = $_POST['qtd'];
-            $img = "./img/loja/" . $_FILES["img"]["name"];
+            $img = "../img/loja/" . $_FILES["img"]["name"];
             $sql = "INSERT INTO itens (nome, valor, img, qtd) VALUES ('$nome', '$valor', '$img', '$qtd')";
             if ($conn->query($sql) === TRUE) {
-                echo "<script type='text/javascript'>alert('Novo registro criado com sucesso.'); window.location.href = '../dashboard.php';</script>";
+                echo "<script type='text/javascript'>alert('Novo registro criado com sucesso.'); window.location.href = '../manageloja.php';</script>";
             } else {
                 echo "Erro: " . $sql . "<br>" . $conn->error;
             }
