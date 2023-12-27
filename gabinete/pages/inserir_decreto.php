@@ -3,7 +3,7 @@ session_start();
 if (empty($_SESSION)) {
     print "<script>location.href='../index.php'</script>";
 }
-include('../config.php');
+include('../../config.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['texto_decreto'])) {
     $texto_decreto = $_POST['texto_decreto'];
@@ -19,5 +19,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['texto_decreto'])) {
     }
 }
 
-echo "<script>location.href='../dashboard.php';</script>";
+echo "<script>location.href='../decretos.php';</script>";
 ?>

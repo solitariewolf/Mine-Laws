@@ -32,10 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Outras ações com base no $lei_id (por exemplo, envio de votação)
 }
 
-// Consulta SQL para obter os decretos
-$sql = "SELECT ID, Texto, Votos_Derrubar FROM decretos";
-$resultdec = $conn->query($sql);
-
 // Recupere as honrarias que receberam pelo menos 3 votos
 $stmt = $conn->prepare("SELECT votacoes_medalhas.id, usuarios.Nome AS Usuario, medalhas.nome AS Medalha, Votos_Positivos, Votos_Negativos, Total_Votos 
 FROM votacoes_medalhas 
@@ -193,61 +189,7 @@ $resultitens = $conn->query($sql);
             </div>
         </div>
 <!--==============fim da seção dos formulários de leis complementares==============-->
-<!--==============Início da seção dos formulários de Decretos==============-->
-    <!--seção sobre decretos-->
-<div style="border: 3px solid #ccc; margin-top: 15px; margin-bottom: 15px">
-<h3 style="margin-top: 10px; color: #128221">Decretos Presidenciais &#128220</h3>
-    <div class="container">
-        <p>O decreto presidencial é o maior poder do presidente, decretos tem validade imediata como lei, mas podem ser derrubados se dois dos membros fundadores decidirem derrubar o decreto, observe que o decreto não pode passar por cima das leis complementares nem da constituição.</p>
-        <form method="post" action="pages/inserir_decreto.php">
-            <label for="texto_decreto">Digite o texto do decreto:</label>
-            <textarea class="form-control" name="texto_decreto" id="texto_decreto"></textarea>
-            <br>
-            <button type="submit" class="btn btn-primary">Inserir Decreto</button>
-        </form>
-    </div><!--container-->
-<div class="container">
-    <h1>Decretos em Vigor</h1>
-    <p>Lista de decretos em vigor ou suspenso, observe que ao apertar em suspender o decreto será suspenso imediatamente de modo irreversível.</p>
-    <div class="decretos">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Número Decreto</th>
-                    <th>Texto Original</th>
-                    <th>Ação</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while ($row = $resultdec->fetch_assoc()) { ?>
-                    <tr>
-                        <td><?php echo $row['ID']; ?></td>
-                        <td>
-                            <?php 
-                            if ($row['Votos_Derrubar'] >= 2) {
-                                echo '<b>Decreto Suspenso</b> - <s>' . $row['Texto'] . '</s>';
-                            } else {
-                                echo $row['Texto'];
-                            }
-                            ?>
-                        </td>
-                        <td>
-                        <form method="post" action="pages/suspender_decreto.php">
-                            <input type="hidden" name="ID" value="<?php echo $row['ID']; ?>">
-                            <button type="submit" name="voto" value="Positivo" class="btn btn-danger">Suspender Decreto</button>
-                        </form>
-                        </td>
-                    </tr>
-                <?php } ?>
-            </tbody>
-        </table>
-    </div><!--decretos-->
 
-        
-    </div>
-
-</div><!--conteudo leis e decretos-->
-<!--==============fim da seção dos formulários de Decretos==============-->
         </div><!--formularios-->
     </div><!--corpo-->
 
