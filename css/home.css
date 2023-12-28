@@ -5,6 +5,14 @@
     justify-content: center;
 }
 
+.banner-inicio{
+    margin: 10px;
+}
+
+.banner-inicio img{
+    border-radius: 8px;
+}
+
 .logo {
     order: 1;
     height: 200px;

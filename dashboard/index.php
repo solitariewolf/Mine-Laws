@@ -91,7 +91,11 @@ $result = $conn->query($sql);
 <div class="conteudo">
 
 <div class="inicial">
-    <div class="logo"><img src="../img/brasao.png" alt=""></div>
+    <!--<div class="logo"><img src="../img/brasao.png" alt=""></div>-->
+    <div class="banner-inicio">
+            <a href="../loja"><img src="../img/banner-inicio.png" alt=""></a>
+            
+        </div>
 
     <div class="cards-container">
         <div class="banco-form">
