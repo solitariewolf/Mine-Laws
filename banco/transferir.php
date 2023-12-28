@@ -41,10 +41,12 @@ try {
     $stmt->execute();
 
     // Insere a transação no extrato
-    $sql = "INSERT INTO banco_extrato (user_d, user_c, valor, mensagem) VALUES (?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param('iids', $id_usuario, $usuario_destino, $valor, $mensagem);
-    $stmt->execute();
+	$data = date('Y-m-d H:i:s'); // Adicione a data atual
+	$tipo = 'D'; // Adicione o tipo de transação
+	$sql = "INSERT INTO banco_extrato (data, valor, tipo, user_c, user_d, mensagem) VALUES (?, ?, ?, ?, ?, ?)";
+	$stmt = $conn->prepare($sql);
+	$stmt->bind_param('sdsiis', $data, $valor, $tipo, $id_usuario, $usuario_destino, $mensagem);
+	$stmt->execute();
 
     // Commit da transação
     $conn->commit();

@@ -88,42 +88,39 @@ include('../config.php');
 
 <div class="formularios-banco">
     <div class="logo-banco"> <img src="../img/banco/bank-logo.png" alt=""></div>
-    <div id="mensagem"></div>
-    <?php
-    // Pega o ID do usuário da sessão
-    $id_usuario = $_SESSION['id'];
+        <div id="mensagem"></div>
 
-    // Prepara a consulta SQL
-    $consulta = $conn->prepare("SELECT u.nome, b.money FROM usuarios u INNER JOIN banco b ON u.id = b.usuario WHERE u.id = ?");
-    $consulta->bind_param('i', $id_usuario);
+        <?php
+        // Pega o ID do usuário da sessão
+        $id_usuario = 1;
 
-    // Executa a consulta
-    $consulta->execute();
+        // Prepara a consulta SQL
+        $consulta = $conn->prepare("SELECT u.nome, b.money FROM usuarios u INNER JOIN banco b ON u.id = b.usuario WHERE u.id = ?");
+        $consulta->bind_param('i', $id_usuario);
 
-    // Fetch the result
-    $resultado = $consulta->get_result()->fetch_assoc();
+        // Executa a consulta
+        $consulta->execute();
 
-    // Formata o valor do dinheiro com pontos como separadores de milhares
-    $money_formatado = number_format($resultado['money'], 2, ',', '.');
+        // Fetch the result
+        $resultado = $consulta->get_result()->fetch_assoc();
 
-    // Exibe a mensagem
-    echo "<p class='saldo-inicio'>Olá " . $resultado['nome'] . ", seu saldo é de MC$: " . $money_formatado . "</p>";
-    ?>
+        // Formata o valor do dinheiro com pontos como separadores de milhares
+        $money_formatado = number_format($resultado['money'], 2, ',', '.');
 
-    <div class="duas-primeiras">
-    
-    <div class="form-transferir">
+        // Exibe a mensagem
+        echo "<p class='saldo-inicio'>Olá " . $resultado['nome'] . ", seu saldo é de MC$: " . $money_formatado . "</p>";
+        ?>
+        <div class="duas-primeiras">
+
+        <div class="form-transferir">
         <h1>Relizar transferência entre contas</h1>
-            <form action="transferir.php" method="post">
-            <label for="usuario">Usuário:</label><br>
-            <select class="form-control bg-light rounded" name="usuario" id="usuario">
+        <form action="transferir-governo.php" method="post">
+        <label for="usuario">Usuário:</label><br>
+        <select class="form-control bg-light rounded" name="usuario" id="usuario">
             <option value="" disabled selected>Escolha um membro</option>
             <?php
-                $sql = "SELECT id, nome FROM usuarios WHERE id != ?";
-                $stmt = $conn->prepare($sql);
-                $stmt->bind_param('i', $_SESSION['id']);
-                $stmt->execute();
-                $result = $stmt->get_result();
+                $sql = "SELECT id, nome FROM usuarios WHERE id != 1";
+                $result = $conn->query($sql);
 
                 if ($result->num_rows > 0) {
                     // Saída dos dados de cada linha
@@ -134,14 +131,15 @@ include('../config.php');
                     echo "<option value=''>Nenhum usuário encontrado</option>";
                 }
             ?>
+
         </select><br>
-            <label for="valor">Valor:</label><br>
-            <input type="number" id="valor" name="valor" min="0" step="0.01"><br>
-            <label for="mensagem">Mensagem:</label><br>
-            <textarea id="mensagem-texto" name="mensagem"></textarea><br>
+        <label for="valor">Valor:</label><br>
+        <input type="number" id="valor" name="valor" min="0" step="0.01"><br>
+        <label for="mensagem">Mensagem:</label><br>
+        <textarea id="mensagem" name="mensagem"></textarea><br>
         <input type="submit" value="Transferir">
         </form>
-    </div><!--form-transferir-->
+        </div><!--form-transferir-->
 
         <div class="form-extrato">
         <h1>Extrato De Transações</h1>
@@ -161,7 +159,8 @@ include('../config.php');
         LIMIT 10 -- Adicione esta linha para limitar o resultado a 10 registros
         ";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param('ii', $_SESSION['id'], $_SESSION['id']);
+        $stmt->bind_param('ii', $id, $id);
+        $id = 1;
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -178,7 +177,7 @@ include('../config.php');
         }
         ?>
 
-        </div><!--form-extrato-->
+        </div><!--form-transferir-->
     </div><!--duas primeiras-->
 </div><!--formularios-banco-->
 
@@ -195,7 +194,7 @@ include('../config.php');
             event.preventDefault();
 
             $.ajax({
-                url: 'transferir.php',
+                url: 'pages/transferir-governo.php',
                 type: 'post',
                 data: $(this).serialize(),
                 success: function(response){

@@ -152,7 +152,7 @@ if ($_SESSION['tipo'] != '2') {
             <div class="loja-home" style="background-color: #FF33F6">
                 <h3>Ministério da Fazenda</h3>
                 <img src="../img/fazenda.png" alt="logo banco">
-                <a href="decretos.php" class="btn btn-primary">Acessar</a>
+                <a href="fazenda.php" class="btn btn-primary">Acessar</a>
             </div><!--loja-home-->
         </div><!--banco-form-->
 

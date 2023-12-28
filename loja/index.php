@@ -38,7 +38,7 @@ include('../config.php');
             <span class="icon">
                 <i data-feather="bell"></i>
             </span>
-            <a href=".">Gabinete Presidente</a>
+            <a href="../gabinete">Gabinete Presidente</a>
         </span>
         <span class="nav-item">
             <span class="icon">
