@@ -87,7 +87,6 @@ include('../config.php');
 <div class="conteudo">
 
 <div class="formularios-banco">
-    <div class="logo-banco"> <img src="../img/banco/bank-logo.png" alt=""></div>
         <div id="mensagem"></div>
 
         <?php
@@ -179,6 +178,16 @@ include('../config.php');
 
         </div><!--form-transferir-->
     </div><!--duas primeiras-->
+
+    <div class="alterar-imposto">
+    <form method="post" action="pages/update_percentual.php">
+        <input type="hidden" name="form_name" value="iva_form">
+        <label for="percentual">Imposto IVA</label><br>
+        <p>Antes de alterar o imposto o presidente deve verificar se existe lei autorizando o aumento de impostos, sob risco de multa e impeachment, não sendo necessário lei para abaixar os impostos.</p>
+        <input type="number" id="percentual" name="percentual" min="0" step="0.01" required><br>
+        <input type="submit" value="Alterar">
+    </form>
+    </div><!--alterar imposto-->
 </div><!--formularios-banco-->
 
 </div><!--conteudo-->

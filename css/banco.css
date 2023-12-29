@@ -122,3 +122,36 @@ table th, table td {
     padding: 5px;
 }
 
+.alterar-imposto{
+    width: 250px;
+    height: 200px;
+    background-color: #0f6b03;
+    border-radius: 5px;
+    padding: 2px;
+    text-align: center;
+}
+
+.alterar-imposto p{
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.alterar-imposto input[type="number"],
+.alterar-imposto input[type="submit"],
+.alterar-imposto label{
+    padding: 2px;
+    margin: 5px;
+}
+
+.alterar-imposto input[type="number"],
+.alterar-imposto input[type="submit"]{
+    width: 75px;
+    border-radius: 5px;
+}
+
+.alterar-imposto input[type="submit"]{
+    background-color: rgb(237, 240, 101)
+}
+.alterar-imposto input[type="submit"]:hover{
+    background-color: rgb(218, 45, 45);
+}
