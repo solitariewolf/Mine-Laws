@@ -4,6 +4,27 @@ if (empty($_SESSION)) {
     print "<script>location.href='../index.php'</script>";
 }
 include('../config.php');
+// Prepare a consulta SQL
+$sql = "SELECT `iva` FROM `imposto` WHERE `id` = 1";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    // Obtenha o resultado
+    $row = $result->fetch_assoc();
+    $iva = $row['iva'];
+} else {
+    $iva = "Não foi possível obter o valor do IVA.";
+}
+
+// Prepare a consulta SQL
+$sql = "SELECT `ir` FROM `imposto` WHERE `id` = 1";
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+    // Obtenha o resultado
+    $row = $result->fetch_assoc();
+    $ir = $row['ir'];
+} else {
+    $ir = "Não foi possível obter o valor do IR.";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -113,7 +134,7 @@ include('../config.php');
 
         <div class="form-transferir">
         <h1>Relizar transferência entre contas</h1>
-        <form action="transferir-governo.php" method="post">
+        <form id="transferir_form" action="transferir-governo.php" method="post">
         <label for="usuario">Usuário:</label><br>
         <select class="form-control bg-light rounded" name="usuario" id="usuario">
             <option value="" disabled selected>Escolha um membro</option>
@@ -135,7 +156,7 @@ include('../config.php');
         <label for="valor">Valor:</label><br>
         <input type="number" id="valor" name="valor" min="0" step="0.01"><br>
         <label for="mensagem">Mensagem:</label><br>
-        <textarea id="mensagem" name="mensagem"></textarea><br>
+        <textarea id="mensagem-transferir" name="mensagem"></textarea><br>
         <input type="submit" value="Transferir">
         </form>
         </div><!--form-transferir-->
@@ -155,7 +176,7 @@ include('../config.php');
         INNER JOIN usuarios d ON e.user_d = d.id
         WHERE e.user_c = ? OR e.user_d = ?
         ORDER BY e.id DESC -- Adicione esta linha para ordenar por data em ordem decrescente
-        LIMIT 10 -- Adicione esta linha para limitar o resultado a 10 registros
+        LIMIT 50 -- Adicione esta linha para limitar o resultado a 10 registros
         ";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('ii', $id, $id);
@@ -179,15 +200,37 @@ include('../config.php');
         </div><!--form-transferir-->
     </div><!--duas primeiras-->
 
+    <h3 style="text-align: center;">Arrecadação Fazendária</h3>
+<div class="secaoimposto">
     <div class="alterar-imposto">
-    <form method="post" action="pages/update_percentual.php">
-        <input type="hidden" name="form_name" value="iva_form">
-        <label for="percentual">Imposto IVA</label><br>
-        <p>Antes de alterar o imposto o presidente deve verificar se existe lei autorizando o aumento de impostos, sob risco de multa e impeachment, não sendo necessário lei para abaixar os impostos.</p>
-        <input type="number" id="percentual" name="percentual" min="0" step="0.01" required><br>
-        <input type="submit" value="Alterar">
-    </form>
+        <form id="iva_form" method="post" action="pages/update_percentual.php">
+            <input type="hidden" name="form_name" value="iva_form">
+            <label for="percentual">Imposto IVA</label><br>
+            <p>Antes de alterar o imposto o presidente deve verificar se existe lei autorizando o aumento de impostos, sob risco de multa e impeachment, não sendo necessário lei para abaixar os impostos.</p>
+            <input type="number" id="percentual" name="percentual" min="0" step="0.01" required><br>
+            <input type="submit" value="Alterar">
+        </form>
+            <div class="aliquota-atual">
+                <p>Valor atual do IVA<p>
+                <p><?php echo $iva; ?>%</p>
+            </div>
     </div><!--alterar imposto-->
+
+    <div class="alterar-imposto">
+        <form id="ir_form" method="post" action="pages/update_percentual.php">
+            <input type="hidden" name="form_name" value="ir_form">
+            <label for="percentual">Imposto De Renda</label><br>
+            <p>Antes de alterar o imposto o presidente deve verificar se existe lei autorizando o aumento de impostos, sob risco de multa e impeachment, não sendo necessário lei para abaixar os impostos.</p>
+            <input type="number" id="percentual" name="percentual" min="0" step="0.01" required><br>
+            <input type="submit" value="Alterar">
+        </form>
+            <div class="aliquota-atual">
+                <p>Valor atual do IR<p>
+                <p><?php echo $ir; ?>%</p>
+            </div>
+    </div><!--alterar imposto-->
+</div><!--secaoimposto-->
+
 </div><!--formularios-banco-->
 
 </div><!--conteudo-->
@@ -198,20 +241,52 @@ include('../config.php');
     <script type="text/javascript" src="../js/script.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-    $(document).ready(function(){
-        $("form").on("submit", function(event){
-            event.preventDefault();
+$(document).ready(function(){
+    $("#transferir_form").on("submit", function(event){
+        event.preventDefault();
 
-            $.ajax({
-                url: 'pages/transferir-governo.php',
-                type: 'post',
-                data: $(this).serialize(),
-                success: function(response){
-                    $("#mensagem").html(response);
-                }
-            });
+        $.ajax({
+            url: 'pages/transferir-governo.php',
+            type: 'post',
+            data: $(this).serialize(),
+            success: function(response){
+                $("#mensagem").html(response);
+            }
         });
     });
+});
+
+$(document).ready(function(){
+    $("#iva_form").on("submit", function(event){
+        event.preventDefault();
+
+        $.ajax({
+            url: 'pages/update_percentual.php',
+            type: 'post',
+            data: $(this).serialize(),
+            success: function(response){
+                $("#mensagem").html(response);
+            }
+        });
+    });
+});
+
+$(document).ready(function(){
+    $("#ir_form").on("submit", function(event){
+        event.preventDefault();
+
+        $.ajax({
+            url: 'pages/update_percentual-ir.php',
+            type: 'post',
+            data: $(this).serialize(),
+            success: function(response){
+                $("#mensagem").html(response);
+            }
+        });
+    });
+});
+
+
     </script>
 </body>
 </html>

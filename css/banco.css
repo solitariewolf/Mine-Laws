@@ -4,6 +4,8 @@
 
 .duas-primeiras{
     width: 100%;
+    border: 1px #ccc solid;
+    padding: 5px;
 }
 
 .logo-banco{
@@ -32,9 +34,11 @@
 .form-transferir, .form-extrato{
     float: left;
     width: 500px;
+    height: 422px;
     border: 1px solid #ccc;
     padding: 10px;
     margin-top: 20px;
+    margin-bottom: 5px;
     border-radius: 5px;
     background-color: #40afb9;
     box-shadow: 2px 2px rgba(0, 0, 0, 0.3);
@@ -114,21 +118,32 @@ table th, table td {
     text-align: left;
 }
 #mensagem{
-    width: 200px;
+    width: 100%;
     height: 50px;
     color: white;
     background-color: #ff5100;
     border-radius: 12px;
     padding: 5px;
+    text-align: center;
+    font-size: 23px;
+}
+
+.secaoimposto{
+    display: flex;
+}
+
+.secaoimposto h3{
+    display: inline;
 }
 
 .alterar-imposto{
-    width: 250px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
     background-color: #0f6b03;
     border-radius: 5px;
     padding: 2px;
     text-align: center;
+    margin: auto;
 }
 
 .alterar-imposto p{
@@ -154,4 +169,13 @@ table th, table td {
 }
 .alterar-imposto input[type="submit"]:hover{
     background-color: rgb(218, 45, 45);
+}
+
+.aliquota-atual{
+    border: 1px #ccc solid;
+    padding: 5px;
+}
+
+.aliquota-atual p{
+    font-size: 12px;
 }

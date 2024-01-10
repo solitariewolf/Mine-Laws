@@ -94,10 +94,15 @@ include('../config.php');
             <input type="submit" value="Pesquisar">
         </form>
     </div><!--conteudo-loja-->
+
 <?php
-    // Campo que exibe o valor total
-    echo "<label for='valor_total'>Valor Total MC$:</label>";
+    // Campo que exibe o valor total da compra
+    echo "<label for='valor_total'>Valor Total Compra MC$:</label>";
     echo "<input type='text' name='valor_total' id='valor_total' value='' readonly>";
+
+    // Campo que exibe o valor total da venda
+    echo "<label for='valor_total_venda'>Valor Total Venda MC$:</label>";
+    echo "<input type='text' name='valor_total_venda' id='valor_total_venda' value='' readonly>";
 
     // Adicione este código para pesquisar itens
     $search = "";
@@ -117,11 +122,13 @@ include('../config.php');
     if ($result->num_rows > 0) {
         // Saída dos dados de cada linha
         while($row = $result->fetch_assoc()) {
+            $valor_venda = $row["valor"] / 2; // Calcula o valor de venda como metade do valor de compra
             echo "<div class='item'>";
             echo "<h2>" . $row["nome"] . "</h2>";
             echo "<img src='" . $row["img"] . "' alt='" . $row["nome"] . "'>";
             echo "<p>Disponível: " . $row["qtd"] . "</p>";
-            echo "<p>Valor MC$: " . $row["valor"] . "</p>";
+            echo "<p>Compra MC$: " . $row["valor"] . "</p>";
+            
             
             // Adiciona um formulário para comprar
             echo "<form action='comprar.php' method='post'>";
@@ -133,6 +140,21 @@ include('../config.php');
             
             echo "<button class='botao-comprar' type='submit'>Comprar</button>";
             echo "</form>";
+
+            echo "<p>Venda MC$: " . $valor_venda . "</p>"; // Exibe o valor de venda
+
+            // Adiciona um formulário para vender
+            echo "<form action='vender.php' method='post'>";
+            echo "<input type='hidden' name='item_id' value='" . $row["id"] . "'>";
+            
+            // Campo para a quantidade de itens a vender
+            echo "<label for='quantidade_venda'>Quantidade: </label>";
+            echo "<input type='number' name='quantidade_venda' id='quantidade_venda' min='1' max='" . $row["qtd"] . "' required onchange='updateTotalVenda(this.value, " . $row["valor"] . ")'>";
+
+            
+            
+            echo "<button class='botao-vender' type='submit'>Vender</button>";
+            echo "</form>";
             
             echo "</div>";
         }
@@ -141,6 +163,7 @@ include('../config.php');
     }
     ?>
 </div>
+
 
 
 </div><!--conteudo-->

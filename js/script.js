@@ -111,10 +111,6 @@ $(document).ready(function(){
 
 //loja
 
-function updateTotal(quantity, price) {
-    document.getElementById('valor_total').value = quantity * price;
-}
-
             //buscar itens
             document.getElementById('item_existente').addEventListener('change', function() {
                 var id = this.value;
@@ -134,3 +130,13 @@ function updateTotal(quantity, price) {
                 xhttp.open("GET", "pages/getItem.php?id=" + id, true);
                 xhttp.send();
             });
+// atualiza o valor total da compra
+function updateTotal(quantity, price) {
+    document.getElementById('valor_total').value = quantity * price;
+}
+
+// Atualiza o valor total da venda
+function updateTotalVenda(quantity, price) {
+    var valor_venda = price / 2;
+    document.getElementById('valor_total_venda').value = quantity * valor_venda;
+}

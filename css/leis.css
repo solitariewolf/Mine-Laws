@@ -167,6 +167,18 @@
     text-align: center;
 }
 
+#quantidade_venda{
+    margin-left: 5px;
+    border-radius: 5px;
+    padding: 2px;
+}
+
+#valor_total_venda{
+    border: none;
+    width: 150px;
+    text-align: center;
+}
+
 .botao-comprar{
     color: white;
     background-color: #197487;
@@ -181,6 +193,22 @@
 
 .botao-comprar:hover{
     background-color: #8decff;
+}
+
+.botao-vender{
+    color: white;
+    background-color: #f08903;
+    text-align: center;
+    width: 150px;
+    padding: 10px;
+    margin-top: 8px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 3px 3px #ccc;
+}
+
+.botao-vender:hover{
+    background-color: #fbff00;
 }
 
 .item {
