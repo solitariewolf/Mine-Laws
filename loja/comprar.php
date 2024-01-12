@@ -53,7 +53,7 @@ if (isset($_POST['item_id']) && isset($_POST['quantidade'])) {
     $stmt->execute();
 
     // Creditar o valor da compra na conta do ID 1
-    $sql = "UPDATE banco SET money = money + ? WHERE usuario = 1";
+    $sql = "UPDATE banco SET money = money + ? WHERE usuario = 7";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("d", $valor_total);
     $stmt->execute();

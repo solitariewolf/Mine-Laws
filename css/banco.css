@@ -179,3 +179,71 @@ table th, table td {
 .aliquota-atual p{
     font-size: 12px;
 }
+
+.secao-emprestimo{
+    display: flex;
+}
+
+.emprestimo-container{
+    width: 500px;
+    height: 500px;
+    background-color: #adb751;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.emprestimo-container h1{
+    text-align: center;
+}
+
+.emprestimo-container > form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.emprestimo-container   input[type="number"],
+                        input[type="select"] {
+    margin: 5px;
+    text-align: center;
+}
+
+.emprestimo-container input[type="submit"]{
+    height: 75px;
+    width: 250px;
+    background-color: #b80505;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.emprestimo-container input[type="submit"]:hover{
+    background-color: #df4949;
+}
+
+.secao-emprestimo span h1{
+    text-align: center;
+}
+
+.emprestimo-direito{
+    display: inline-block;
+    width: 500px;
+    height: 200px;
+}
+
+.secao-emprestimo span{
+    margin: 5px;
+}
+
+.secao-emprestimo span img{
+    text-align: center;
+    margin: auto;
+}
+
+.container-emprestados{
+    width: 500px;
+    height: 300px;
+    background-color: #008cff;
+}
+

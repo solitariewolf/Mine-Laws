@@ -137,6 +137,18 @@ function updateTotal(quantity, price) {
 
 // Atualiza o valor total da venda
 function updateTotalVenda(quantity, price) {
-    var valor_venda = price / 2;
+    var valor_venda = price ;
     document.getElementById('valor_total_venda').value = quantity * valor_venda;
 }
+
+//calcular taxa de juros
+
+function calcularValorTotal() {
+    var valor_emprestimo = parseFloat(document.getElementById('valor_emprestimo').value);
+    var taxa_juros = parseFloat(document.getElementById('taxa_juros').value);
+    var prazo_pagamento = parseFloat(document.getElementById('prazo_pagamento').value);
+    
+    var valor_total = valor_emprestimo + (taxa_juros / 30) * (prazo_pagamento )*(valor_emprestimo ) / 100;
+    
+    document.getElementById('valor_total').value = valor_total.toFixed(2);
+  }

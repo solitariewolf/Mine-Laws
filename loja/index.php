@@ -122,7 +122,7 @@ include('../config.php');
     if ($result->num_rows > 0) {
         // Saída dos dados de cada linha
         while($row = $result->fetch_assoc()) {
-            $valor_venda = $row["valor"] / 2; // Calcula o valor de venda como metade do valor de compra
+            $valor_venda = $row["valor"];
             echo "<div class='item'>";
             echo "<h2>" . $row["nome"] . "</h2>";
             echo "<img src='" . $row["img"] . "' alt='" . $row["nome"] . "'>";
@@ -136,7 +136,7 @@ include('../config.php');
             
             // Campo para a quantidade de itens a comprar
             echo "<label for='quantidade'>Quantidade: </label>";
-            echo "<input type='number' name='quantidade' id='quantidade' min='1' max='" . $row["qtd"] . "' required onchange='updateTotal(this.value, " . $row["valor"] . ")'>";
+            echo "<input type='number' name='quantidade' id='quantidade' min='1' max='64'" . $row["qtd"] . "' required onchange='updateTotal(this.value, " . $row["valor"] . ")'>";
             
             echo "<button class='botao-comprar' type='submit'>Comprar</button>";
             echo "</form>";
@@ -149,7 +149,7 @@ include('../config.php');
             
             // Campo para a quantidade de itens a vender
             echo "<label for='quantidade_venda'>Quantidade: </label>";
-            echo "<input type='number' name='quantidade_venda' id='quantidade_venda' min='1' max='" . $row["qtd"] . "' required onchange='updateTotalVenda(this.value, " . $row["valor"] . ")'>";
+            echo "<input type='number' name='quantidade_venda' id='quantidade_venda' min='1' max='64'" . $row["qtd"] . "' required onchange='updateTotalVenda(this.value, " . $row["valor"] . ")'>";
 
             
             

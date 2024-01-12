@@ -4,6 +4,15 @@ if (empty($_SESSION)) {
     print "<script>location.href='../index.php'</script>";
 }
 include('../config.php');
+
+// Buscar a taxa de juros da tabela de impostos
+$query = "SELECT iva FROM imposto";
+$result = mysqli_query($conn, $query);
+
+if ($result) {
+  $row = mysqli_fetch_assoc($result);
+  $taxa_juros = $row['iva'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -114,7 +123,7 @@ include('../config.php');
     
     <div class="form-transferir">
         <h1>Relizar transferência entre contas</h1>
-            <form action="transferir.php" method="post">
+            <form id="form-transferir" action="transferir.php" method="post">
             <label for="usuario">Usuário:</label><br>
             <select class="form-control bg-light rounded" name="usuario" id="usuario">
             <option value="" disabled selected>Escolha um membro</option>
@@ -182,6 +191,43 @@ include('../config.php');
     </div><!--duas primeiras-->
 </div><!--formularios-banco-->
 
+<div class="formularios-banco">
+    <div class="duas-primeiras">
+        <div class="secao-emprestimo">
+
+            <div class="emprestimo-container">
+                <h1>Empréstimo Bancário</h1>
+                <form id="form-emprestimo" action="emprestimo.php" method="post">
+                Valor do Empréstimo: <input type="number" id="valor_emprestimo" name="valor_emprestimo" oninput="calcularValorTotal()" required><br>
+                Taxa de Juros: <input type="number" id="taxa_juros" name="taxa_juros" value="<?php echo $taxa_juros; ?>" readonly><br>
+                Prazo de Pagamento: 
+                <select id="prazo_pagamento" name="prazo_pagamento" oninput="calcularValorTotal()" required>
+                    <option value="7">7 dias</option>
+                    <option value="14">14 dias</option>
+                    <option value="21">21 dias</option>
+                    <option value="30">30 dias</option>
+                </select><br>
+                Valor Total a Pagar: <input type="number" id="valor_total" name="valor_total" readonly><br>
+                <input type="submit" value="Solicitar Empréstimo">
+                </form>
+            </div><!--emprestimo-container-->
+
+        <div class="emprestimo-direito">
+            <span>
+                <h1>Regras sobre empréstimos</h1>
+                <p>A taxa de juros é definida pelo presidente com autorização em lei complementar.</p>
+                <p>Ao solicitar um <b>empréstimo</b> o valor deverá ser integralmente pago na data de vencimento, sob risco de multa e bloqueio de conta bancária.</p>
+            </span>
+
+            <div class="container-emprestados">
+                <p>Emprestimos realizados</p>
+            </div>
+        </div><!--emprestido-direito-->
+
+        </div><!--secao-emprestimo-->
+    </div><!--duas primeiras-->
+</div><!--formularios-banco-->
+
 </div><!--conteudo-->
 
     <script>
@@ -191,7 +237,7 @@ include('../config.php');
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
     $(document).ready(function(){
-        $("form").on("submit", function(event){
+        $("#form-transferir").on("submit", function(event){
             event.preventDefault();
 
             $.ajax({
@@ -204,6 +250,18 @@ include('../config.php');
             });
         });
     });
+
+    $("#form-emprestimo").on("submit", function(event){
+        event.preventDefault();
+        $.ajax({
+                url: 'emprestimo.php',
+                type: 'post',
+                data: $(this).serialize(),
+                success: function(response){
+                    $("#mensagem").html(response);
+                }
+            });
+        });
     </script>
 </body>
 </html>
