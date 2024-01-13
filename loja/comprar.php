@@ -19,6 +19,14 @@ if (isset($_POST['item_id']) && isset($_POST['quantidade'])) {
     $quantidade_disponivel = $row['qtd'];
     $quantidade = $_POST['quantidade'];
 
+    // Obtenha a alíquota do imposto do banco de dados
+    $sql = "SELECT `isc` FROM `imposto` WHERE `id` = 1";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    $aliquota_imposto = $row['isc'];
+
     // Verifique se o usuário tem saldo suficiente
     $sql = "SELECT money FROM banco WHERE usuario = ?";
     $stmt = $conn->prepare($sql);
@@ -52,21 +60,42 @@ if (isset($_POST['item_id']) && isset($_POST['quantidade'])) {
     $stmt->bind_param("di", $valor_total, $_SESSION['id']);
     $stmt->execute();
 
-    // Creditar o valor da compra na conta do ID 1
+    // Calcular o valor do imposto e o valor líquido da compra
+    $valor_imposto = $valor_total * ($aliquota_imposto / 100);
+    $valor_liquido = $valor_total - $valor_imposto;
+
+    // Creditar o valor líquido da compra na conta do ID 7
     $sql = "UPDATE banco SET money = money + ? WHERE usuario = 7";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("d", $valor_total);
+    $stmt->bind_param("d", $valor_liquido);
     $stmt->execute();
 
-    // Registre a transação no extrato
+    // Creditar o valor do imposto na conta do ID 1
+    $sql = "UPDATE banco SET money = money + ? WHERE usuario = 1";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("d", $valor_imposto);
+    $stmt->execute();
+
+    // Registre a transação de débito na conta do usuário e crédito na conta de ID 7
     $mensagem = "Compra de Item";
     $data = date('Y-m-d H:i:s');
     $tipo = 'D'; // D para débito
-    $user_c = 1; // ID 1 para todas as compras
+    $user_c = 7; // ID 7 para a conta que recebe o valor líquido
     $sql = "INSERT INTO banco_extrato (data, valor, tipo, user_c, user_d, mensagem) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sdsiis", $data, $valor_total, $tipo, $user_c, $_SESSION['id'], $mensagem);
+    $stmt->bind_param("sdsiis", $data, $valor_liquido, $tipo, $user_c, $_SESSION['id'], $mensagem);
     $stmt->execute();
+
+    // Registre a transação de débito na conta do usuário e crédito na conta de ID 1
+    $mensagem = "Imposto sobre Compra";
+    $tipo = 'D'; // D para débito
+    $user_c = 1; // ID 1 para a conta que recebe o valor do imposto
+    $sql = "INSERT INTO banco_extrato (data, valor, tipo, user_c, user_d, mensagem) VALUES (?, ?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sdsiis", $data, $valor_imposto, $tipo, $user_c, $_SESSION['id'], $mensagem);
+    $stmt->execute();
+
+
 
     // Primeira requisição para obter o token
     $url = 'http://144.22.179.248:8080/oauth2/token';
