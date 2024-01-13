@@ -46,7 +46,7 @@ if ($result) {
             <span class="icon">
                 <i data-feather="bell"></i>
             </span>
-            <a href=".">Gabinete Presidente</a>
+            <a href="../gabinete">Gabinete Presidente</a>
         </span>
         <span class="nav-item">
             <span class="icon">
@@ -220,8 +220,41 @@ if ($result) {
             </span>
 
             <div class="container-emprestados">
-                <p>Emprestimos realizados</p>
+                <p>Seus Empréstimos</p>
+                <div class="emprestados">
+                <?php
+                $id_jogador = $_SESSION['id'];
+
+                // Buscar empréstimos
+                $query = "SELECT * FROM emprestimos WHERE id_jogador = ? ORDER BY quitado DESC";
+                $stmt = $conn->prepare($query);
+                $stmt->bind_param('i', $id_jogador);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                while ($row = $result->fetch_assoc()) {
+                    echo "Valor Emprestado: " . $row['valor_emprestado'] . "<br>";
+                    echo "Valor Total: " . $row['valor_total'] . "<br>";
+                    echo "Prazo de Pagamento: " . $row['prazo_pagamento'] . "<br>";
+                    echo "Dia de Vencimento: " . $row['dia_vencimento'] . "<br>";
+                    
+                    // Se o empréstimo não estiver quitado, mostrar o botão "Quitar Empréstimo"
+                    // Caso contrário, mostrar uma mensagem de que o empréstimo já foi quitado
+                    if ($row['quitado'] == 'não') {
+                        echo "<button onclick=\"quitarEmprestimo(" . $row['id_emprestimo'] . ")\">Quitar Dívida</button><br>";
+                    } else {
+                        echo "Esta dívida já foi quitada.<br>";
+                    }
+                    
+                    echo "<hr>";
+                }
+
+
+                $stmt->close();
+                ?>
+                </div>
             </div>
+
         </div><!--emprestido-direito-->
 
         </div><!--secao-emprestimo-->

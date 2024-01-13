@@ -25,6 +25,15 @@ if ($result->num_rows > 0) {
 } else {
     $ir = "Não foi possível obter o valor do IR.";
 }
+
+// Buscar a taxa de juros da tabela de impostos
+$query = "SELECT iva FROM imposto";
+$result = mysqli_query($conn, $query);
+
+if ($result) {
+  $row = mysqli_fetch_assoc($result);
+  $taxa_juros = $row['iva'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -205,13 +214,13 @@ if ($result->num_rows > 0) {
     <div class="alterar-imposto">
         <form id="iva_form" method="post" action="pages/update_percentual.php">
             <input type="hidden" name="form_name" value="iva_form">
-            <label for="percentual">Imposto IVA</label><br>
+            <label for="percentual">Taxa de Juros</label><br>
             <p>Antes de alterar o imposto o presidente deve verificar se existe lei autorizando o aumento de impostos, sob risco de multa e impeachment, não sendo necessário lei para abaixar os impostos.</p>
             <input type="number" id="percentual" name="percentual" min="0" step="0.01" required><br>
             <input type="submit" value="Alterar">
         </form>
             <div class="aliquota-atual">
-                <p>Valor atual do IVA<p>
+                <p>Valor atual do Juros em percentual<p>
                 <p><?php echo $iva; ?>%</p>
             </div>
     </div><!--alterar imposto-->
@@ -231,6 +240,78 @@ if ($result->num_rows > 0) {
     </div><!--alterar imposto-->
 </div><!--secaoimposto-->
 
+</div><!--formularios-banco-->
+
+<div class="formularios-banco">
+    <div class="duas-primeiras">
+        <div class="secao-emprestimo">
+
+            <div class="emprestimo-container">
+                <h1>Empréstimo Bancário</h1>
+                <form id="form-emprestimo" action="emprestimo-governo.php" method="post">
+                Valor do Empréstimo: <input type="number" id="valor_emprestimo" name="valor_emprestimo" oninput="calcularValorTotal()" required><br>
+                Taxa de Juros: <input type="number" id="taxa_juros" name="taxa_juros" value="<?php echo $taxa_juros; ?>" readonly><br>
+                Prazo de Pagamento: 
+                <select id="prazo_pagamento" name="prazo_pagamento" oninput="calcularValorTotal()" required>
+                    <option value="7">7 dias</option>
+                    <option value="14">14 dias</option>
+                    <option value="21">21 dias</option>
+                    <option value="30">30 dias</option>
+                </select><br>
+                Valor Total a Pagar: <input type="number" id="valor_total" name="valor_total" readonly><br>
+                <input type="submit" value="Solicitar Empréstimo">
+                </form>
+            </div><!--emprestimo-container-->
+
+        <div class="emprestimo-direito">
+            <span>
+                <h1>Regras sobre empréstimos</h1>
+                <p>A taxa de juros é definida pelo presidente com autorização em lei complementar.</p>
+                <p>Ao solicitar um <b>empréstimo</b> o valor deverá ser integralmente pago na data de vencimento, sob risco de multa e bloqueio de conta bancária.</p>
+            </span>
+
+            <div class="container-emprestados">
+            <p>Empréstimos Realizados Pelo Governo</p>
+            <div class="emprestados">
+            <?php
+            $id_jogador = '1';
+
+            // Buscar empréstimos
+            $query = "SELECT * FROM emprestimos WHERE id_jogador = ? ORDER BY quitado DESC";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param('i', $id_jogador);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            while ($row = $result->fetch_assoc()) {
+                echo "Valor Emprestado: " . $row['valor_emprestado'] . "<br>";
+                echo "Valor Total: " . $row['valor_total'] . "<br>";
+                echo "Prazo de Pagamento: " . $row['prazo_pagamento'] . "<br>";
+                echo "Dia de Vencimento: " . $row['dia_vencimento'] . "<br>";
+                
+                // Se o empréstimo não estiver quitado, mostrar o botão "Quitar Empréstimo"
+                // Caso contrário, mostrar uma mensagem de que o empréstimo já foi quitado
+                if ($row['quitado'] == 'não') {
+                    echo '<form action="quitar.php" method="get">';
+                    echo '<input type="hidden" name="id_emprestimo" value="' . $row['id_emprestimo'] . '">';
+                    echo '<input type="submit" value="Quitar Dívida">';
+                    echo '</form>';
+                } else {
+                    echo "Esta dívida já foi quitada.<br>";
+                }
+                
+                echo "<hr>";
+            }
+
+            $stmt->close();
+            ?>
+                </div>
+            </div>
+
+        </div><!--emprestido-direito-->
+
+        </div><!--secao-emprestimo-->
+    </div><!--duas primeiras-->
 </div><!--formularios-banco-->
 
 </div><!--conteudo-->

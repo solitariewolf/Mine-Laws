@@ -152,3 +152,17 @@ function calcularValorTotal() {
     
     document.getElementById('valor_total').value = valor_total.toFixed(2);
   }
+
+  //função para quitar o emprestimo
+
+  function quitarEmprestimo(id_emprestimo) {
+    // Aqui você pode adicionar a lógica para quitar o empréstimo
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            alert("Empréstimo " + id_emprestimo + " quitado!");
+        }
+    };
+    xhttp.open("GET", "quitar.php?id_emprestimo=" + id_emprestimo, true);
+    xhttp.send();
+}
