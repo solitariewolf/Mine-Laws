@@ -5,35 +5,23 @@ if (empty($_SESSION)) {
 }
 include('../config.php');
 // Prepare a consulta SQL
-$sql = "SELECT `iva` FROM `imposto` WHERE `id` = 1";
+$sql = "SELECT `iva`, `ir`, `isc`, `isv` FROM `imposto` WHERE `id` = 1";
 $result = $conn->query($sql);
+
 if ($result->num_rows > 0) {
     // Obtenha o resultado
     $row = $result->fetch_assoc();
     $iva = $row['iva'];
+    $ir = $row['ir'];
+    $isc = $row['isc'];
+    $isv = $row['isv'];
 } else {
     $iva = "Não foi possível obter o valor do IVA.";
-}
-
-// Prepare a consulta SQL
-$sql = "SELECT `ir` FROM `imposto` WHERE `id` = 1";
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-    // Obtenha o resultado
-    $row = $result->fetch_assoc();
-    $ir = $row['ir'];
-} else {
     $ir = "Não foi possível obter o valor do IR.";
+    $isc = "Não foi possível obter o valor do ISC.";
+    $isv = "Não foi possível obter o valor do ISV.";
 }
 
-// Buscar a taxa de juros da tabela de impostos
-$query = "SELECT iva FROM imposto";
-$result = mysqli_query($conn, $query);
-
-if ($result) {
-  $row = mysqli_fetch_assoc($result);
-  $taxa_juros = $row['iva'];
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -208,14 +196,18 @@ if ($result) {
 
         </div><!--form-transferir-->
     </div><!--duas primeiras-->
+    
+    <div class="texto-imposto">
+        <h3 style="text-align: center;">Arrecadação Fazendária</h3>
+        <p>Antes de alterar o imposto o presidente deve verificar se existe lei autorizando o aumento de impostos, sob risco de multa e impeachment, não sendo necessário lei para abaixar os impostos.</p>
+    </div>
 
-    <h3 style="text-align: center;">Arrecadação Fazendária</h3>
 <div class="secaoimposto">
     <div class="alterar-imposto">
         <form id="iva_form" method="post" action="pages/update_percentual.php">
             <input type="hidden" name="form_name" value="iva_form">
             <label for="percentual">Taxa de Juros</label><br>
-            <p>Antes de alterar o imposto o presidente deve verificar se existe lei autorizando o aumento de impostos, sob risco de multa e impeachment, não sendo necessário lei para abaixar os impostos.</p>
+            <p>Taxa de juros sobre empréstimos bancários.</p>
             <input type="number" id="percentual" name="percentual" min="0" step="0.01" required><br>
             <input type="submit" value="Alterar">
         </form>
@@ -229,7 +221,7 @@ if ($result) {
         <form id="ir_form" method="post" action="pages/update_percentual.php">
             <input type="hidden" name="form_name" value="ir_form">
             <label for="percentual">Imposto De Renda</label><br>
-            <p>Antes de alterar o imposto o presidente deve verificar se existe lei autorizando o aumento de impostos, sob risco de multa e impeachment, não sendo necessário lei para abaixar os impostos.</p>
+            <p>Imposto sobre o valor total que o jogador possui em conta.</p>
             <input type="number" id="percentual" name="percentual" min="0" step="0.01" required><br>
             <input type="submit" value="Alterar">
         </form>
@@ -238,6 +230,35 @@ if ($result) {
                 <p><?php echo $ir; ?>%</p>
             </div>
     </div><!--alterar imposto-->
+
+    <div class="alterar-imposto">
+        <form id="isc_form" method="post" action="pages/update_percentual.php">
+            <input type="hidden" name="form_name" value="isc_form">
+            <label for="percentual">Imposto Sobre Compra</label><br>
+            <p>Percentual do imposto sobre a compra de itens.</p>
+            <input type="number" id="percentual" name="percentual" min="0" step="0.01" required><br>
+            <input type="submit" value="Alterar">
+        </form>
+            <div class="aliquota-atual">
+                <p>Valor atual do ISC<p>
+                <p><?php echo $isc; ?>%</p>
+            </div>
+    </div><!--alterar imposto-->
+
+    <div class="alterar-imposto">
+        <form id="isv_form" method="post" action="pages/update_percentual.php">
+            <input type="hidden" name="form_name" value="isv_form">
+            <label for="percentual">Imposto Sobre Venda</label><br>
+            <p>Percentual do imposto sobre a venda de itens.</p>
+            <input type="number" id="percentual" name="percentual" min="0" step="0.01" required><br>
+            <input type="submit" value="Alterar">
+        </form>
+            <div class="aliquota-atual">
+                <p>Valor atual do ISC<p>
+                <p><?php echo $isv; ?>%</p>
+            </div>
+    </div><!--alterar imposto-->
+
 </div><!--secaoimposto-->
 
 </div><!--formularios-banco-->
@@ -358,6 +379,36 @@ $(document).ready(function(){
 
         $.ajax({
             url: 'pages/update_percentual-ir.php',
+            type: 'post',
+            data: $(this).serialize(),
+            success: function(response){
+                $("#mensagem").html(response);
+            }
+        });
+    });
+});
+
+$(document).ready(function(){
+    $("#isc_form").on("submit", function(event){
+        event.preventDefault();
+
+        $.ajax({
+            url: 'pages/update_percentual-isc.php',
+            type: 'post',
+            data: $(this).serialize(),
+            success: function(response){
+                $("#mensagem").html(response);
+            }
+        });
+    });
+});
+
+$(document).ready(function(){
+    $("#isv_form").on("submit", function(event){
+        event.preventDefault();
+
+        $.ajax({
+            url: 'pages/update_percentual-isv.php',
             type: 'post',
             data: $(this).serialize(),
             success: function(response){

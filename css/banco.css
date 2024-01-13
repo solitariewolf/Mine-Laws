@@ -128,8 +128,14 @@ table th, table td {
     font-size: 23px;
 }
 
+.texto-imposto{
+    max-width: 1000px;
+    text-align: center;
+}
+
 .secaoimposto{
     display: flex;
+    max-width: 1000px;
 }
 
 .secaoimposto h3{
@@ -149,6 +155,7 @@ table th, table td {
 .alterar-imposto p{
     font-size: 10px;
     font-weight: bold;
+    height: 15px;
 }
 
 .alterar-imposto input[type="number"],
@@ -273,4 +280,12 @@ table th, table td {
     color: white;
     border-radius: 5px;
     margin-top: 5px;
+}
+
+.controladoria{
+    display: flex;
+}
+
+.controladoria-emprestimos{
+    border: 1px #ccc solid;
 }
